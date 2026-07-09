@@ -32,9 +32,10 @@ workflows:
       flutter: 3.35.4
       xcode: latest
       cocoapods: default
-      ios_signing:
-        distribution_type: app_store
-        bundle_identifier: com.googer.ios
+      # NOTE: no `ios_signing:` block here on purpose. That block makes Codemagic
+      # try to fetch an EXISTING profile at setup time and fails before scripts
+      # run. Instead the "Set up code signing" script below CREATES the cert +
+      # profile via the API key, then applies them.
       vars:
         APP_STORE_APPLE_ID: 6789272441       # numeric Apple ID of the app in App Store Connect
     scripts:
@@ -44,9 +45,6 @@ workflows:
         script: flutter pub get
       - name: Analyze
         script: flutter analyze || true
-      - name: Install CocoaPods
-        script: |
-          find . -name "Podfile" -execdir pod install \;
       - name: Set up code signing (fetch/create App Store profile)
         script: |
           # Ensure the bundle id exists on the Developer portal (no-op if it does).
@@ -64,6 +62,9 @@ workflows:
           keychain initialize
           keychain add-certificates
           xcode-project use-profiles
+      - name: Install CocoaPods
+        script: |
+          find . -name "Podfile" -execdir pod install \;
       - name: Build IPA (release)
         script: |
           flutter build ipa --release \
