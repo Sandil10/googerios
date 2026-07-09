@@ -44,11 +44,26 @@ workflows:
         script: flutter pub get
       - name: Analyze
         script: flutter analyze || true
-      - name: Set up code signing (App Store)
-        script: xcode-project use-profiles
       - name: Install CocoaPods
         script: |
           find . -name "Podfile" -execdir pod install \;
+      - name: Set up code signing (fetch/create App Store profile)
+        script: |
+          # Ensure the bundle id exists on the Developer portal (no-op if it does).
+          app-store-connect bundle-ids register "com.googer.ios" \
+            --platform IOS || true
+          # Ensure an App Store distribution certificate exists (create if missing).
+          app-store-connect certificates create \
+            --type IOS_DISTRIBUTION \
+            --save || true
+          # Create/fetch the App Store provisioning profile for the bundle id.
+          app-store-connect fetch-signing-files "com.googer.ios" \
+            --type IOS_APP_STORE \
+            --create
+          # Add fetched certificate(s) to a temporary keychain and apply profiles.
+          keychain initialize
+          keychain add-certificates
+          xcode-project use-profiles
       - name: Build IPA (release)
         script: |
           flutter build ipa --release \
