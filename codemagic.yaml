@@ -45,30 +45,36 @@ workflows:
         script: flutter pub get
       - name: Analyze
         script: flutter analyze || true
-      - name: Set up code signing (fetch/create App Store profile)
+      - name: Set up code signing (create cert + profile, load keychain)
         script: |
-          # Ensure the bundle id exists on the Developer portal (no-op if it does).
-          app-store-connect bundle-ids register "com.googer.ios" \
-            --platform IOS || true
-          # Ensure an App Store distribution certificate exists (create if missing).
-          app-store-connect certificates create \
-            --type IOS_DISTRIBUTION \
-            --save || true
-          # Create/fetch the App Store provisioning profile for the bundle id.
+          set -e
+          # 1) Make sure the bundle id exists on the Developer portal.
+          app-store-connect bundle-ids register "com.googer.ios" --platform IOS || true
+
+          # 2) Initialize a temporary keychain for this build.
+          keychain initialize
+
+          # 3) Fetch signing files for the bundle id, CREATING the distribution
+          #    certificate and App Store profile if they don't exist. This saves
+          #    the .p12 cert + .mobileprovision into the CM_* default locations.
           app-store-connect fetch-signing-files "com.googer.ios" \
             --type IOS_APP_STORE \
             --create
-          # Add fetched certificate(s) to a temporary keychain and apply profiles.
-          keychain initialize
+
+          # 4) Import the fetched certificate(s) into the keychain.
           keychain add-certificates
+
+          # 5) Apply the provisioning profiles to the Xcode project and generate
+          #    a matching export_options.plist for flutter build ipa.
           xcode-project use-profiles
       - name: Install CocoaPods
         script: |
           find . -name "Podfile" -execdir pod install \;
       - name: Build IPA (release)
         script: |
+          set -e
           flutter build ipa --release \
-            --export-options-plist=/Users/builder/export_options.plist
+            --export-options-plist=$HOME/export_options.plist
     artifacts:
       - build/ios/ipa/*.ipa
       - /tmp/xcodebuild_logs/*.log
