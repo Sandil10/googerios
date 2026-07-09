@@ -1,0 +1,23 @@
+workflows:
+  android-release:
+    name: Googer Android Release
+    max_build_duration: 60
+    instance_type: mac_mini_m2
+    environment:
+      flutter: 3.35.4
+      java: 17
+    scripts:
+      - name: Flutter version
+        script: flutter --version
+      - name: Get packages
+        script: flutter pub get
+      - name: Analyze
+        script: flutter analyze || true
+      - name: Build APK (release)
+        script: flutter build apk --release
+      - name: Build AAB (release)
+        script: flutter build appbundle --release
+    artifacts:
+      - build/app/outputs/flutter-apk/*.apk
+      - build/app/outputs/bundle/release/*.aab
+      - build/app/outputs/**/mapping.txt
