@@ -59,7 +59,8 @@ workflows:
           #    the .p12 cert + .mobileprovision into the CM_* default locations.
           app-store-connect fetch-signing-files "com.googer.ios" \
             --type IOS_APP_STORE \
-            --create
+            --create \
+            --verbose
 
           # 4) Import the fetched certificate(s) into the keychain.
           keychain add-certificates
@@ -67,6 +68,14 @@ workflows:
           # 5) Apply the provisioning profiles to the Xcode project and generate
           #    a matching export_options.plist for flutter build ipa.
           xcode-project use-profiles
+
+          # 6) Diagnostics: prove a cert + profile actually landed on disk / keychain.
+          echo "===== signing certificates in keychain ====="
+          security find-identity -v -p codesigning || true
+          echo "===== downloaded provisioning profiles ====="
+          ls -la $HOME/Library/MobileDevice/Provisioning\ Profiles/ 2>/dev/null || true
+          echo "===== export_options.plist ====="
+          cat $HOME/export_options.plist 2>/dev/null || echo "NO export_options.plist written"
       - name: Install CocoaPods
         script: |
           find . -name "Podfile" -execdir pod install \;
