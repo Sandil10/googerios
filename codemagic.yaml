@@ -27,7 +27,7 @@ workflows:
     max_build_duration: 90
     instance_type: mac_mini_m2
     integrations:
-      app_store_connect: codemagic          # <-- your App Store Connect API key integration name
+      app_store_connect: app_store_connect   # App Store Connect API key integration name (as set in Codemagic)
     environment:
       flutter: 3.35.4
       xcode: latest
