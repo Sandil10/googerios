@@ -49,33 +49,41 @@ workflows:
         script: |
           set -e
           # 1) Make sure the bundle id exists on the Developer portal.
-          app-store-connect bundle-ids register "com.googer.ios" --platform IOS || true
+          app-store-connect bundle-ids create "com.googer.ios" \
+            --name "Googer iOS" --platform IOS || true
 
           # 2) Initialize a temporary keychain for this build.
           keychain initialize
 
-          # 3) Fetch signing files for the bundle id, CREATING the distribution
-          #    certificate and App Store profile if they don't exist. This saves
-          #    the .p12 cert + .mobileprovision into the CM_* default locations.
+          # 3) Generate a private key, then create an iOS Distribution certificate
+          #    from it (Apple can't issue a cert without a private key). Save both.
+          CERT_KEY=$HOME/cert_key.pem
+          openssl genrsa -out "$CERT_KEY" 2048
+          app-store-connect certificates create \
+            --type IOS_DISTRIBUTION \
+            --certificate-key=@file:"$CERT_KEY" \
+            --save \
+            --verbose
+
+          # 4) Create/fetch the App Store provisioning profile, reusing that key so
+          #    the fetched certificate has its matching private key.
           app-store-connect fetch-signing-files "com.googer.ios" \
             --type IOS_APP_STORE \
+            --certificate-key=@file:"$CERT_KEY" \
             --create \
             --verbose
 
-          # 4) Import the fetched certificate(s) into the keychain.
+          # 5) Import certificate(s) into the keychain and apply profiles.
           keychain add-certificates
-
-          # 5) Apply the provisioning profiles to the Xcode project and generate
-          #    a matching export_options.plist for flutter build ipa.
           xcode-project use-profiles
 
-          # 6) Diagnostics: prove a cert + profile actually landed on disk / keychain.
-          echo "===== signing certificates in keychain ====="
+          # 6) Diagnostics: prove a cert + profile actually landed.
+          echo "===== signing identities ====="
           security find-identity -v -p codesigning || true
-          echo "===== downloaded provisioning profiles ====="
-          ls -la $HOME/Library/MobileDevice/Provisioning\ Profiles/ 2>/dev/null || true
+          echo "===== provisioning profiles ====="
+          ls -la "$HOME/Library/MobileDevice/Provisioning Profiles/" 2>/dev/null || true
           echo "===== export_options.plist ====="
-          cat $HOME/export_options.plist 2>/dev/null || echo "NO export_options.plist written"
+          cat "$HOME/export_options.plist" 2>/dev/null || echo "NO export_options.plist written"
       - name: Install CocoaPods
         script: |
           find . -name "Podfile" -execdir pod install \;
