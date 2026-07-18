@@ -29,6 +29,8 @@ workflows:
     integrations:
       app_store_connect: app_store_connect   # App Store Connect API key integration name (as set in Codemagic)
     environment:
+      groups:
+        - appstore_credentials
       flutter: 3.35.4
       xcode: latest
       cocoapods: default
