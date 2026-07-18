@@ -283,12 +283,26 @@ class _LiveHomeTabState extends State<LiveHomeTab> {
     final profileAds =
         _ads.where((a) => a.isProfilePromote && !_hiddenAdIds.contains(a.adId)).toList();
 
-    // 1. mix organic googs + uploads with the session seed (stable order)
-    final organic = _shuffleSeeded<_FeedEntry>(
-      [...posts.map(_GoogEntry.new), ...uploads.map(_UploadEntry.new)],
-      "$_seed:mixed-organic",
-      (e) => e.key,
+    // 1. keep upload/vault/flash content visible in the first viewport, then
+    // mix the rest with the session seed (stable order).
+    final shuffledUploads = _shuffleSeeded<UploadContent>(
+      uploads,
+      "$_seed:upload-first",
+      (u) => "upload-${u.id}",
     );
+    final pinnedUploads = shuffledUploads.take(2).map(_UploadEntry.new).toList();
+    final remainingOrganic = <_FeedEntry>[
+      ...shuffledUploads.skip(2).map(_UploadEntry.new),
+      ...posts.map(_GoogEntry.new),
+    ];
+    final organic = <_FeedEntry>[
+      ...pinnedUploads,
+      ..._shuffleSeeded<_FeedEntry>(
+        remainingOrganic,
+        "$_seed:mixed-organic",
+        (e) => e.key,
+      ),
+    ];
 
     // 2. profile promote carousels â€” first after 3 organic, then every 8
     final withCarousels = <_FeedEntry>[];

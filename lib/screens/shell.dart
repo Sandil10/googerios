@@ -179,7 +179,7 @@ class GoogerTopBar extends StatelessWidget implements PreferredSizeWidget {
                 style: const TextStyle(
                     fontSize: 13,
                     color: Colors.white,
-                    fontWeight: FontWeight.w800),
+                    fontWeight: FontWeight.w500),
               ),
             ),
           ),
@@ -356,11 +356,11 @@ class _ShopTabState extends State<ShopTab> {
                 const SizedBox(width: 8),
                 Flexible(
                   child: Text(t.$2,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                          fontSize: t.$3 ? 21 : 16,
-                          fontWeight: FontWeight.w900,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                          fontSize: t.$3 ? 19 : 15,
+                          fontWeight: t.$3 ? FontWeight.w600 : FontWeight.w500,
                           color: t.$3 ? Colors.white : GoogerColors.dim)),
                 ),
               ]),
@@ -403,7 +403,7 @@ class _ShopTabState extends State<ShopTab> {
                 child: Text(c,
                     style: TextStyle(
                         fontSize: 13,
-                        fontWeight: FontWeight.w900,
+                        fontWeight: FontWeight.w600,
                         color: active ? Colors.black : GoogerColors.dim)),
               ),
             ),
@@ -449,7 +449,7 @@ class _ShopTabState extends State<ShopTab> {
                     child: Text("RECOMMENDED FOR YOU",
                         style: TextStyle(
                             fontSize: 14,
-                            fontWeight: FontWeight.w900,
+                            fontWeight: FontWeight.w600,
                             letterSpacing: 1.5,
                             color: Colors.white)),
                   ),
@@ -504,7 +504,7 @@ class _ScreenshotWalletTab extends StatelessWidget {
           Text("Estimated Balance",
               style: TextStyle(
                   fontSize: 10,
-                  fontWeight: FontWeight.w800,
+                  fontWeight: FontWeight.w500,
                   color: GoogerColors.dim)),
           SizedBox(width: 5),
           Icon(Icons.visibility_outlined, size: 13, color: GoogerColors.dim),
@@ -516,7 +516,7 @@ class _ScreenshotWalletTab extends StatelessWidget {
           Text("9,612.00",
               style: TextStyle(
                   fontSize: 30,
-                  fontWeight: FontWeight.w900,
+                  fontWeight: FontWeight.w600,
                   letterSpacing: -0.8,
                   color: Colors.white)),
           SizedBox(width: 7),
@@ -525,7 +525,7 @@ class _ScreenshotWalletTab extends StatelessWidget {
             child: Text("RC",
                 style: TextStyle(
                     fontSize: 11,
-                    fontWeight: FontWeight.w900,
+                    fontWeight: FontWeight.w600,
                     color: GoogerColors.dim)),
           ),
         ]),
@@ -573,7 +573,7 @@ class _ScreenshotWalletTab extends StatelessWidget {
         const Text("MORE SERVICES",
             style: TextStyle(
                 fontSize: 10,
-                fontWeight: FontWeight.w900,
+                fontWeight: FontWeight.w600,
                 color: GoogerColors.dim)),
         const SizedBox(height: 8),
         Container(
@@ -592,7 +592,7 @@ class _ScreenshotWalletTab extends StatelessWidget {
           child: Text("Refer & Earn",
               style: TextStyle(
                   fontSize: 12,
-                  fontWeight: FontWeight.w900,
+                  fontWeight: FontWeight.w600,
                   color: Colors.white)),
         ),
         const Padding(
@@ -614,7 +614,7 @@ class _ScreenshotWalletTab extends StatelessWidget {
             child: const Text("Learn more",
                 style: TextStyle(
                     fontSize: 9,
-                    fontWeight: FontWeight.w900,
+                    fontWeight: FontWeight.w600,
                     color: Color(0xFF111111))),
           ),
         ),
@@ -623,13 +623,13 @@ class _ScreenshotWalletTab extends StatelessWidget {
           Text("RECENT ACTIVITY",
               style: TextStyle(
                   fontSize: 10,
-                  fontWeight: FontWeight.w900,
+                  fontWeight: FontWeight.w600,
                   color: GoogerColors.dim)),
           Spacer(),
           Text("See all",
               style: TextStyle(
                   fontSize: 10,
-                  fontWeight: FontWeight.w800,
+                  fontWeight: FontWeight.w500,
                   color: GoogerColors.dim)),
         ]),
         const SizedBox(height: 8),
@@ -680,7 +680,7 @@ class _WalletAction extends StatelessWidget {
       const SizedBox(height: 8),
       Text(label,
           style: const TextStyle(
-              fontSize: 10, fontWeight: FontWeight.w900, color: Colors.white)),
+              fontSize: 10, fontWeight: FontWeight.w500, color: Colors.white)),
     ]);
   }
 }
@@ -721,7 +721,7 @@ class _WalletAssetRow extends StatelessWidget {
               ? Text(iconText!,
                   style: TextStyle(
                       fontSize: 14,
-                      fontWeight: FontWeight.w900,
+                      fontWeight: FontWeight.w600,
                       color: iconColor))
               : Icon(icon, size: 16, color: iconColor),
         ),
@@ -732,7 +732,7 @@ class _WalletAssetRow extends StatelessWidget {
             Text(title,
                 style: const TextStyle(
                     fontSize: 12,
-                    fontWeight: FontWeight.w900,
+                    fontWeight: FontWeight.w600,
                     color: GoogerColors.text)),
             Text(subtitle,
                 style: const TextStyle(
@@ -748,7 +748,7 @@ class _WalletAssetRow extends StatelessWidget {
             Text(amount ?? "",
                 style: const TextStyle(
                     fontSize: 12,
-                    fontWeight: FontWeight.w900,
+                    fontWeight: FontWeight.w600,
                     color: Colors.white)),
             Text(subAmount ?? "",
                 style: const TextStyle(
@@ -776,7 +776,7 @@ class _LivePill extends StatelessWidget {
       child: const Text("LIVE",
           style: TextStyle(
               fontSize: 8,
-              fontWeight: FontWeight.w900,
+              fontWeight: FontWeight.w600,
               color: GoogerColors.green)),
     );
   }
@@ -805,7 +805,7 @@ class _ServiceRow extends StatelessWidget {
             child: Text(title,
                 style: const TextStyle(
                     fontSize: 12,
-                    fontWeight: FontWeight.w900,
+                    fontWeight: FontWeight.w600,
                     color: GoogerColors.text))),
         const Icon(Icons.chevron_right, size: 15, color: GoogerColors.faint),
       ]),
@@ -840,7 +840,7 @@ class _ActivityRow extends StatelessWidget {
           child: Text(initial,
               style: const TextStyle(
                   fontSize: 12,
-                  fontWeight: FontWeight.w900,
+                  fontWeight: FontWeight.w600,
                   color: Colors.white)),
         ),
         const SizedBox(width: 10),
@@ -850,7 +850,7 @@ class _ActivityRow extends StatelessWidget {
             Text(title,
                 style: const TextStyle(
                     fontSize: 11.5,
-                    fontWeight: FontWeight.w900,
+                    fontWeight: FontWeight.w600,
                     color: GoogerColors.text)),
             Text(subtitle,
                 style: const TextStyle(
@@ -862,7 +862,7 @@ class _ActivityRow extends StatelessWidget {
         Text(amount,
             style: TextStyle(
                 fontSize: 11.5,
-                fontWeight: FontWeight.w900,
+                fontWeight: FontWeight.w600,
                 color: amountColor)),
       ]),
     );

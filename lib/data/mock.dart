@@ -40,7 +40,7 @@ const feedPosts = [
 
 class Product {
   final int id;
-  final String title, image, seller, category, description;
+  final String title, image, seller, sellerAvatar, category, description;
   final double price;
   final double? oldPrice;
   final double rating;
@@ -55,6 +55,7 @@ class Product {
     this.oldPrice,
     required this.image,
     required this.seller,
+    this.sellerAvatar = "",
     required this.rating,
     required this.sold,
     required this.category,

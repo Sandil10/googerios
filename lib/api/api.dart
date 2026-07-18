@@ -71,6 +71,7 @@ class Api {
 
   /// Resolve backend media paths ("uploads/x.jpg", "/uploads/x.jpg", full URLs, data URIs)
   static String resolveMedia(String src) {
+    if (src.trim().isEmpty) return "";
     if (src.startsWith("http") || src.startsWith("data:")) return src;
     final normalized = src.replaceAll("\\", "/");
     // keep subfolders like /uploads/upload-content/... intact
@@ -526,6 +527,58 @@ class Api {
     }
   }
 
+  static Future<List<Product>> userProducts(dynamic userId) async {
+    final rows = await userMarketItems("$userId");
+    return rows.map((m) {
+      String image = "";
+      for (final key in [
+        "main_image",
+        "image_url",
+        "product_image",
+        "cover_image",
+        "thumbnail",
+        "thumbnail_url",
+        "media_url",
+      ]) {
+        final value = m[key];
+        if (value != null && value.toString().trim().isNotEmpty) {
+          image = value.toString();
+          break;
+        }
+      }
+      if (image.isEmpty) {
+        final gallery = m["images"] ?? m["product_images"] ?? m["media_gallery"] ?? m["media"];
+        if (gallery is List && gallery.isNotEmpty) {
+          final first = gallery.first;
+          image = first is Map
+              ? (first["url"] ?? first["src"] ?? first["path"] ?? first["image_url"] ?? first["media_url"] ?? "").toString()
+              : first.toString();
+        }
+      }
+      final promo = double.tryParse("${m["promo_price"] ?? ""}");
+      final basePrice = double.tryParse("${m["price"] ?? 0}") ?? 0;
+      final avatar = (m["profile_picture"] ?? m["owner_profile_picture"] ?? m["seller_avatar"] ?? "").toString();
+      return Product(
+        id: int.tryParse("${m["id"]}") ?? 0,
+        title: (m["title"] ?? m["name"] ?? "Product").toString(),
+        price: promo != null && promo > 0 ? promo : basePrice,
+        oldPrice: promo != null && promo > 0 && promo < basePrice ? basePrice : null,
+        image: image.isEmpty ? "" : resolveMedia(image),
+        seller: (m["owner_username"] ?? m["username"] ?? "googer").toString(),
+        sellerAvatar: avatar.isEmpty ? "" : resolveMedia(avatar),
+        rating: double.tryParse("${m["rating"] ?? 4.5}") ?? 4.5,
+        sold: int.tryParse("${m["sold"] ?? m["sales_count"] ?? 0}") ?? 0,
+        category: (m["category"] ?? m["manual_category"] ?? "General").toString(),
+        description: (m["description"] ?? "").toString(),
+        likes: int.tryParse("${m["likes_count"] ?? 0}") ?? 0,
+        views: int.tryParse("${m["views_count"] ?? 0}") ?? 0,
+        comments: int.tryParse("${m["comments_count"] ?? 0}") ?? 0,
+        shares: int.tryParse("${m["shares_count"] ?? 0}") ?? 0,
+        liked: m["user_liked"] == true,
+      );
+    }).toList();
+  }
+
   /// POST /market/{ad-N}/like — returns new liked state, null on failure.
   static Future<bool?> toggleAdLike(String interactionId) async {
     if (!loggedIn) return null;
@@ -598,13 +651,23 @@ class Api {
       final list = _unwrapList(data, ["products", "data", "items"]);
       return list.map<Product>((raw) {
         final m = Map<String, dynamic>.from(raw as Map);
-        // image priority matches the market API: main_image > image_url > thumbnail > media_url > images[0]
+        // image priority matches web/backend market shapes, including storage-bucket paths.
         String img = "";
         for (final key in [
           "main_image",
+          "mainImage",
           "image_url",
+          "imageUrl",
+          "product_image",
+          "productImage",
+          "cover_image",
+          "coverImage",
+          "thumbnail",
           "thumbnail_url",
-          "media_url"
+          "media_url",
+          "mediaUrl",
+          "photo_url",
+          "photoUrl",
         ]) {
           final v = m[key];
           if (v != null && v.toString().isNotEmpty) {
@@ -613,14 +676,38 @@ class Api {
           }
         }
         if (img.isEmpty) {
-          final media = m["images"] ?? m["media_gallery"] ?? m["media"];
+          final media = m["images"] ??
+              m["product_images"] ??
+              m["gallery"] ??
+              m["media_gallery"] ??
+              m["mediaGallery"] ??
+              m["media"];
           if (media is List && media.isNotEmpty) {
             final first = media.first;
             img = first is Map
-                ? (first["url"] ?? first["src"] ?? "").toString()
+                ? (first["url"] ??
+                        first["src"] ??
+                        first["path"] ??
+                        first["image_url"] ??
+                        first["media_url"] ??
+                        "")
+                    .toString()
                 : first.toString();
           }
         }
+        final owner = m["user"] is Map
+            ? Map<String, dynamic>.from(m["user"])
+            : m["owner"] is Map
+                ? Map<String, dynamic>.from(m["owner"])
+                : <String, dynamic>{};
+        final sellerAvatar = (m["profile_picture"] ??
+                m["owner_profile_picture"] ??
+                m["seller_avatar"] ??
+                m["avatar"] ??
+                owner["profile_picture"] ??
+                owner["avatar"] ??
+                "")
+            .toString();
         final promo = double.tryParse("${m["promo_price"] ?? ""}");
         final basePrice = double.tryParse("${m["price"] ?? 0}") ?? 0;
         return Product(
@@ -634,8 +721,10 @@ class Api {
           seller: (m["owner_username"] ??
                   m["shop_name"] ??
                   m["username"] ??
+                  owner["username"] ??
                   "Googer Seller")
               .toString(),
+          sellerAvatar: sellerAvatar.isEmpty ? "" : resolveMedia(sellerAvatar),
           rating: double.tryParse("${m["rating"] ?? 4.5}") ?? 4.5,
           sold: int.tryParse("${m["sold"] ?? m["sales_count"] ?? 0}") ?? 0,
           category:

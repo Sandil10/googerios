@@ -39,7 +39,7 @@ class _ProductCardState extends State<ProductCard> {
           Padding(
             padding: const EdgeInsets.fromLTRB(10, 8, 8, 6),
             child: Row(children: [
-              GoogerAvatar(url: null, name: product.seller, size: 24),
+              GoogerAvatar(url: product.sellerAvatar.isEmpty ? null : product.sellerAvatar, name: product.seller, size: 24),
               const SizedBox(width: 7),
               Expanded(
                 child: Text(product.seller,
@@ -47,7 +47,7 @@ class _ProductCardState extends State<ProductCard> {
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                         fontSize: 10,
-                        fontWeight: FontWeight.w900,
+                        fontWeight: FontWeight.w600,
                         color: Colors.white)),
               ),
               const Icon(Icons.more_vert, size: 18, color: Colors.white70),
@@ -61,11 +61,11 @@ class _ProductCardState extends State<ProductCard> {
                 AspectRatio(
                   aspectRatio: 0.95,
                   child: product.image.isEmpty
-                      ? Container(color: Colors.black)
+                      ? const _ProductImageFallback()
                       : Image.network(product.image,
                           fit: BoxFit.cover,
                           errorBuilder: (_, __, ___) =>
-                              Container(color: Colors.black)),
+                              const _ProductImageFallback()),
                 ),
                 if (sale != null)
                   Positioned(
@@ -82,7 +82,7 @@ class _ProductCardState extends State<ProductCard> {
                       child: Text(sale,
                           style: const TextStyle(
                               fontSize: 11,
-                              fontWeight: FontWeight.w900,
+                              fontWeight: FontWeight.w600,
                               color: Color(0xFF00FF88))),
                     ),
                   ),
@@ -98,7 +98,7 @@ class _ProductCardState extends State<ProductCard> {
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                         fontSize: 12,
-                        fontWeight: FontWeight.w900,
+                        fontWeight: FontWeight.w600,
                         color: Colors.white)),
                 const Spacer(),
                 Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
@@ -107,7 +107,7 @@ class _ProductCardState extends State<ProductCard> {
                     child: Text("R",
                         style: TextStyle(
                             fontSize: 13,
-                            fontWeight: FontWeight.w900,
+                            fontWeight: FontWeight.w500,
                             color: GoogerColors.dim)),
                   ),
                   const SizedBox(width: 5),
@@ -117,7 +117,7 @@ class _ProductCardState extends State<ProductCard> {
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
                             fontSize: 25,
-                            fontWeight: FontWeight.w900,
+                            fontWeight: FontWeight.w600,
                             color: Colors.white)),
                   ),
                   Container(
@@ -151,7 +151,7 @@ class _ProductCardState extends State<ProductCard> {
                         Text(_fmt(likes),
                             style: const TextStyle(
                                 fontSize: 9.5,
-                                fontWeight: FontWeight.w800,
+                                fontWeight: FontWeight.w500,
                                 color: Colors.white)),
                       ],
                     ]),
@@ -163,7 +163,7 @@ class _ProductCardState extends State<ProductCard> {
                   Text(_fmt(product.views),
                       style: const TextStyle(
                           fontSize: 9.5,
-                          fontWeight: FontWeight.w800,
+                          fontWeight: FontWeight.w500,
                           color: Colors.white)),
                   const SizedBox(width: 12),
                   const Icon(Icons.mode_comment_outlined,
@@ -172,7 +172,7 @@ class _ProductCardState extends State<ProductCard> {
                   Text(_fmt(product.comments),
                       style: const TextStyle(
                           fontSize: 9.5,
-                          fontWeight: FontWeight.w800,
+                          fontWeight: FontWeight.w500,
                           color: Colors.white)),
                   const Spacer(),
                   const Icon(Icons.share_outlined, size: 14, color: Colors.white),
@@ -181,6 +181,29 @@ class _ProductCardState extends State<ProductCard> {
             ),
           ),
         ]),
+      ),
+    );
+  }
+}
+
+class _ProductImageFallback extends StatelessWidget {
+  const _ProductImageFallback();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: const Color(0xFF0B0B0C),
+      alignment: Alignment.center,
+      child: const Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.image_outlined, size: 22, color: GoogerColors.faint),
+          SizedBox(height: 6),
+          Text(
+            "Product photo",
+            style: TextStyle(fontSize: 10.5, fontWeight: FontWeight.w500, color: GoogerColors.faint),
+          ),
+        ],
       ),
     );
   }

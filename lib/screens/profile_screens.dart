@@ -4,6 +4,7 @@ import '../data/mock.dart';
 import '../theme.dart';
 import '../widgets/goog_card.dart';
 import '../widgets/kit.dart';
+import '../widgets/product_card.dart';
 
 
 /* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ My profile â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
@@ -18,6 +19,7 @@ class MyProfileScreen extends StatefulWidget {
 class _MyProfileScreenState extends State<MyProfileScreen> {
   String tab = "Googs";
   List<GoogPost> myGoogs = [];
+  List<Product> myProducts = [];
   int followerCount = 0;
   int followingCount = 0;
   bool loaded = false;
@@ -40,14 +42,16 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
     }
     final results = await Future.wait([
       Api.userGoogs(_myId),
+      Api.userProducts(_myId),
       Api.followers(_myId),
       Api.following(_myId),
     ]);
     if (!mounted) return;
     setState(() {
       myGoogs = results[0] as List<GoogPost>;
-      followerCount = (results[1] as List).length;
-      followingCount = (results[2] as List).length;
+      myProducts = results[1] as List<Product>;
+      followerCount = (results[2] as List).length;
+      followingCount = (results[3] as List).length;
       loaded = true;
     });
   }
@@ -154,13 +158,14 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
             else
               ...myGoogs.map((p) => GoogCard(p))
           else
-            EmptyState(
-                icon: tab == "Products"
-                    ? Icons.inventory_2_outlined
-                    : tab == "Reels"
-                        ? Icons.movie_outlined
-                        : Icons.bookmark_border,
-                title: "No ${tab.toLowerCase()} yet"),
+            if (tab == "Products")
+              _ProductProfileGrid(products: myProducts)
+            else
+              EmptyState(
+                  icon: tab == "Reels"
+                      ? Icons.movie_outlined
+                      : Icons.bookmark_border,
+                  title: "No ${tab.toLowerCase()} yet"),
         ]),
       ),
     );
@@ -181,6 +186,7 @@ class _PublicProfileScreenState extends State<PublicProfileScreen> {
   bool subscribed = false;
   Map<String, dynamic>? user;
   List<GoogPost> posts = [];
+  List<Product> profileProducts = [];
   int followerCount = 0;
   int followingCount = 0;
   bool loaded = false;
@@ -212,6 +218,7 @@ class _PublicProfileScreenState extends State<PublicProfileScreen> {
     Api.logProfileView(id); // same as web: log the visit
     final results = await Future.wait([
       Api.userGoogs(id),
+      Api.userProducts(id),
       Api.followers(id),
       Api.following(id),
       Api.isSubscribedTo(id),
@@ -219,9 +226,10 @@ class _PublicProfileScreenState extends State<PublicProfileScreen> {
     if (!mounted) return;
     setState(() {
       posts = results[0] as List<GoogPost>;
-      followerCount = (results[1] as List).length;
-      followingCount = (results[2] as List).length;
-      following = results[3] as bool;
+      profileProducts = results[1] as List<Product>;
+      followerCount = (results[2] as List).length;
+      followingCount = (results[3] as List).length;
+      following = results[4] as bool;
       subscribed = following;
       loaded = true;
     });
@@ -316,15 +324,22 @@ class _PublicProfileScreenState extends State<PublicProfileScreen> {
             ]),
           ]),
         ),
-        const Padding(padding: EdgeInsets.fromLTRB(18, 0, 18, 10), child: Overline("Googs")),
-        const Divider(),
+        Container(
+          decoration: const BoxDecoration(border: Border(bottom: BorderSide(color: GoogerColors.line))),
+          child: Row(children: [
+            _ProfileTab(label: "Products", active: profileProducts.isNotEmpty),
+            _ProfileTab(label: "Googs", active: profileProducts.isEmpty),
+          ]),
+        ),
         if (!loaded)
           const Padding(
             padding: EdgeInsets.all(30),
             child: Center(child: GoogerSpinner(size: 30)),
           )
+        else if (profileProducts.isNotEmpty)
+          _ProductProfileGrid(products: profileProducts)
         else if (posts.isEmpty)
-          const EmptyState(icon: Icons.edit_note, title: "No googs yet")
+          const EmptyState(icon: Icons.edit_note, title: "No content yet")
         else
           ...posts.map((p) => GoogCard(p)),
       ]),
@@ -371,6 +386,51 @@ class _PublicProfileScreenState extends State<PublicProfileScreen> {
           ),
         ]),
       ),
+    );
+  }
+}
+
+class _ProfileTab extends StatelessWidget {
+  final String label;
+  final bool active;
+  const _ProfileTab({required this.label, required this.active});
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(color: active ? Colors.white : Colors.transparent, width: 2)),
+        ),
+        alignment: Alignment.center,
+        child: Overline(label, color: active ? GoogerColors.text : GoogerColors.dim),
+      ),
+    );
+  }
+}
+
+class _ProductProfileGrid extends StatelessWidget {
+  final List<Product> products;
+  const _ProductProfileGrid({required this.products});
+
+  @override
+  Widget build(BuildContext context) {
+    if (products.isEmpty) {
+      return const EmptyState(icon: Icons.inventory_2_outlined, title: "No products yet");
+    }
+    return GridView.builder(
+      padding: const EdgeInsets.fromLTRB(10, 14, 10, 28),
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        mainAxisSpacing: 8,
+        crossAxisSpacing: 8,
+        childAspectRatio: 0.72,
+      ),
+      itemCount: products.length,
+      itemBuilder: (_, i) => ProductCard(products[i]),
     );
   }
 }

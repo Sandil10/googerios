@@ -17,22 +17,28 @@ class GoogerAvatar extends StatelessWidget {
     final initials = name.trim().isEmpty
         ? "G"
         : name.trim().split(RegExp(r"\s+")).take(2).map((p) => p[0].toUpperCase()).join();
-    final avatar = Container(
+    Widget fallback() => Container(
       width: size,
       height: size,
       decoration: BoxDecoration(
         color: GoogerColors.soft10,
         shape: BoxShape.circle,
         border: Border.all(color: GoogerColors.line),
-        image: imageUrl != null && imageUrl.isNotEmpty
-            ? DecorationImage(image: NetworkImage(imageUrl), fit: BoxFit.cover)
-            : null,
       ),
       alignment: Alignment.center,
-      child: imageUrl == null || imageUrl.isEmpty
-          ? Text(initials, style: TextStyle(color: GoogerColors.text, fontWeight: FontWeight.w600, fontSize: size * 0.34))
-          : null,
+      child: Text(initials, style: TextStyle(color: GoogerColors.text, fontWeight: FontWeight.w500, fontSize: size * 0.34)),
     );
+    final avatar = imageUrl != null && imageUrl.isNotEmpty
+        ? ClipOval(
+            child: Image.network(
+              imageUrl,
+              width: size,
+              height: size,
+              fit: BoxFit.cover,
+              errorBuilder: (_, __, ___) => fallback(),
+            ),
+          )
+        : fallback();
     if (!online) return avatar;
     return Stack(children: [
       avatar,
