@@ -36,11 +36,11 @@ workflows:
       # try to fetch an EXISTING profile at setup time and fails before scripts
       # run. Instead the "Set up code signing" script below CREATES the cert +
       # profile via the API key, then applies them.
-      # CERTIFICATE_PRIVATE_KEY lives in the "ios_signing" secure variable group
+      # CERTIFICATE_PRIVATE_KEY lives in the "test" secure variable group
       # (Codemagic UI → app → Environment variables). Never inline Encrypted(...)
       # values here — they only decrypt inside the team that created them.
       groups:
-        - ios_signing
+        - test
       vars:
         APP_STORE_APPLE_ID: 6789272441       # numeric Apple ID of the app in App Store Connect
     scripts:
