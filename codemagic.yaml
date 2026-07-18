@@ -36,9 +36,13 @@ workflows:
       # try to fetch an EXISTING profile at setup time and fails before scripts
       # run. Instead the "Set up code signing" script below CREATES the cert +
       # profile via the API key, then applies them.
+      # CERTIFICATE_PRIVATE_KEY lives in the "ios_signing" secure variable group
+      # (Codemagic UI → app → Environment variables). Never inline Encrypted(...)
+      # values here — they only decrypt inside the team that created them.
+      groups:
+        - ios_signing
       vars:
         APP_STORE_APPLE_ID: 6789272441       # numeric Apple ID of the app in App Store Connect
-        CERTIFICATE_PRIVATE_KEY: Encrypted(...)
     scripts:
       - name: Flutter version
         script: flutter --version
