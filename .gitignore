@@ -44,7 +44,5 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-# Repo-specific: exclude the nested reference project and doc notes from the push
+# Repo-specific: exclude the nested reference project from the push
 /flutter_app/
-*.md
-!README.md
