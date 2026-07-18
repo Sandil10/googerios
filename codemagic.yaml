@@ -45,7 +45,7 @@ workflows:
         script: flutter pub get
       - name: Analyze
         script: flutter analyze || true
-      - name: Set up code signing (create cert + profile, load keychain)
+      - name: Set up code signing (fetch cert + profile, load keychain)
         script: |
           set -e
           # 1) Make sure the bundle id exists on the Developer portal.
@@ -55,18 +55,17 @@ workflows:
           # 2) Initialize a temporary keychain for this build.
           keychain initialize
 
-          # 3) Generate a private key, then create an iOS Distribution certificate
-          #    from it (Apple can't issue a cert without a private key). Save both.
+          # 3) Reuse one persistent private key so Codemagic can fetch the same
+          #    distribution certificate instead of creating a duplicate every run.
+          if [ -z "${CERTIFICATE_PRIVATE_KEY:-}" ]; then
+            echo "CERTIFICATE_PRIVATE_KEY is missing. Add it in Codemagic environment variables."
+            exit 1
+          fi
           CERT_KEY=$HOME/cert_key.pem
-          openssl genrsa -out "$CERT_KEY" 2048
-          app-store-connect certificates create \
-            --type IOS_DISTRIBUTION \
-            --certificate-key=@file:"$CERT_KEY" \
-            --save \
-            --verbose
+          printf "%s" "$CERTIFICATE_PRIVATE_KEY" > "$CERT_KEY"
+          chmod 600 "$CERT_KEY"
 
-          # 4) Create/fetch the App Store provisioning profile, reusing that key so
-          #    the fetched certificate has its matching private key.
+          # 4) Create/fetch the App Store provisioning profile and matching cert.
           app-store-connect fetch-signing-files "com.googer.ios" \
             --type IOS_APP_STORE \
             --certificate-key=@file:"$CERT_KEY" \
