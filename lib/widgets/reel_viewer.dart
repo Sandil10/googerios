@@ -178,7 +178,7 @@ class _ReelViewer extends StatelessWidget {
                           Text(username,
                               style: const TextStyle(
                                   fontSize: 14,
-                                  fontWeight: FontWeight.w800,
+                                  fontWeight: FontWeight.w600,
                                   color: Colors.white,
                                   shadows: [
                                     Shadow(blurRadius: 8, color: Colors.black)

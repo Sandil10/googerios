@@ -106,7 +106,7 @@ class _CampaignEditorState extends State<CampaignEditor> {
           padding: const EdgeInsets.symmetric(vertical: 30),
           decoration: BoxDecoration(
             color: GoogerColors.soft,
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(12),
             border: Border.all(color: GoogerColors.line),
           ),
           child: Column(children: [
@@ -142,7 +142,7 @@ class _CampaignEditorState extends State<CampaignEditor> {
                   padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 6),
                   decoration: BoxDecoration(
                     color: GoogerColors.soft6,
-                    borderRadius: BorderRadius.circular(999),
+                    borderRadius: BorderRadius.circular(12),
                     border: Border.all(color: GoogerColors.line),
                   ),
                   child: Text("$a", style: const TextStyle(fontSize: 10.5, fontWeight: FontWeight.w500, color: GoogerColors.muted)),
@@ -166,7 +166,7 @@ class _CampaignEditorState extends State<CampaignEditor> {
             padding: const EdgeInsets.all(14),
             decoration: BoxDecoration(
               color: GoogerColors.amber.withValues(alpha: 0.05),
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(12),
               border: Border.all(color: GoogerColors.amber.withValues(alpha: 0.2)),
             ),
             child: Row(children: [

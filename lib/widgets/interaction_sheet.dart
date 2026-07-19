@@ -120,7 +120,7 @@ class _InteractionSheetState extends State<_InteractionSheet> {
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     decoration: BoxDecoration(
                       color: active ? GoogerColors.soft10 : Colors.transparent,
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(children: [
                       Icon(t.$2, size: 22, color: GoogerColors.text),
@@ -140,7 +140,7 @@ class _InteractionSheetState extends State<_InteractionSheet> {
               // no close button — swipe down or tap outside to dismiss
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text(tab.toUpperCase(),
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700, letterSpacing: 1, color: GoogerColors.text)),
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600, letterSpacing: 0, color: GoogerColors.text)),
                 const Overline("Goog Post", color: GoogerColors.sky),
               ]),
               const Spacer(),
@@ -193,7 +193,7 @@ class _InteractionSheetState extends State<_InteractionSheet> {
                           GoogerAvatar(url: pic.isEmpty ? null : Api.resolveMedia(pic), name: name, size: 38),
                           const SizedBox(width: 12),
                           Text(name.toUpperCase(),
-                              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, letterSpacing: 0.6, color: GoogerColors.text)),
+                              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, letterSpacing: 0, color: GoogerColors.text)),
                           const Spacer(),
                           Text(time, style: const TextStyle(fontSize: 10, color: GoogerColors.dim)),
                         ]),
@@ -209,7 +209,7 @@ class _InteractionSheetState extends State<_InteractionSheet> {
                           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                             Row(children: [
                               Text(name.toUpperCase(),
-                                  style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 0.6, color: GoogerColors.text)),
+                                  style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600, letterSpacing: 0, color: GoogerColors.text)),
                               const SizedBox(width: 6),
                               Text(time, style: const TextStyle(fontSize: 9, color: GoogerColors.dim)),
                             ]),
@@ -240,7 +240,7 @@ class _InteractionSheetState extends State<_InteractionSheet> {
                                   input.selection = TextSelection.collapsed(offset: input.text.length);
                                 },
                                 child: const Text("REPLY",
-                                    style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, letterSpacing: 1, color: GoogerColors.sky)),
+                                    style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, letterSpacing: 0, color: GoogerColors.sky)),
                               ),
                               if (Api.loggedIn && name.toLowerCase() == Api.username.toLowerCase()) ...[
                                 const SizedBox(width: 14),
@@ -294,8 +294,8 @@ class _InteractionSheetState extends State<_InteractionSheet> {
                         decoration: InputDecoration(
                           hintText: "Add a comment…",
                           fillColor: GoogerColors.soft6,
-                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(20), borderSide: const BorderSide(color: GoogerColors.line)),
-                          enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(20), borderSide: const BorderSide(color: GoogerColors.line)),
+                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: GoogerColors.line)),
+                          enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: GoogerColors.line)),
                           contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
                         ),
                         style: const TextStyle(fontSize: 13, color: GoogerColors.text),

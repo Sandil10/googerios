@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import '../api/api.dart';
@@ -6,7 +6,7 @@ import '../data/mock.dart';
 import '../theme.dart';
 import '../widgets/kit.dart';
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ Chat conversation â€” real messages via /chat/messages â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ───────────── Chat conversation — real messages via /chat/messages ───────────── */
 
 class ChatConversationScreen extends StatefulWidget {
   const ChatConversationScreen();
@@ -134,7 +134,7 @@ class _ChatConversationScreenState extends State<ChatConversationScreen> {
       final ok = await Api.sendChatMessage(peer!.peerId, text);
       if (!ok && mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Message not delivered â€” log in first"), behavior: SnackBarBehavior.floating),
+          const SnackBar(content: Text("Message not delivered — log in first"), behavior: SnackBarBehavior.floating),
         );
       }
     }
@@ -194,8 +194,8 @@ class _ChatConversationScreenState extends State<ChatConversationScreen> {
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                               fontSize: 13,
-                              fontWeight: FontWeight.w900,
-                              letterSpacing: 1.5,
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: 0,
                               color: Colors.white)),
                       Row(children: [
                         Container(
@@ -214,7 +214,7 @@ class _ChatConversationScreenState extends State<ChatConversationScreen> {
                                 : (p.online ? "ONLINE" : "OFFLINE"),
                             style: const TextStyle(
                                 fontSize: 9,
-                                fontWeight: FontWeight.w900,
+                                fontWeight: FontWeight.w600,
                                 color: GoogerColors.dim)),
                       ]),
                     ]),
@@ -253,7 +253,7 @@ class _ChatConversationScreenState extends State<ChatConversationScreen> {
       body: Column(children: [
         Expanded(
           child: messages.isEmpty
-              ? const EmptyState(icon: Icons.forum_outlined, title: "No messages yet", subtitle: "Say hi ðŸ‘‹")
+              ? const EmptyState(icon: Icons.forum_outlined, title: "No messages yet", subtitle: "Say hi 👋")
               : ListView.builder(
                   padding: const EdgeInsets.all(16),
                   itemCount: messages.length,
@@ -308,10 +308,10 @@ class _ChatConversationScreenState extends State<ChatConversationScreen> {
                   minLines: 1,
                   maxLines: 4,
                   decoration: InputDecoration(
-                    hintText: "Messageâ€¦",
+                    hintText: "Message…",
                     fillColor: GoogerColors.soft6,
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(20), borderSide: const BorderSide(color: GoogerColors.line)),
-                    enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(20), borderSide: const BorderSide(color: GoogerColors.line)),
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: GoogerColors.line)),
+                    enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: GoogerColors.line)),
                     contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
                   ),
                   style: const TextStyle(fontSize: 13.5, color: GoogerColors.text),
@@ -336,7 +336,7 @@ class _ChatConversationScreenState extends State<ChatConversationScreen> {
     );
   }
 }
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ Reel viewer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ───────────── Reel viewer ───────────── */
 
 class ReelViewerScreen extends StatelessWidget {
   const ReelViewerScreen();
@@ -403,7 +403,7 @@ class ReelViewerScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.white54),
-                        borderRadius: BorderRadius.circular(999),
+                        borderRadius: BorderRadius.circular(12),
                       ),
                       child: const Text("Follow", style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500, color: Colors.white)),
                     ),
@@ -451,7 +451,7 @@ class ReelViewerScreen extends StatelessWidget {
   }
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ Write a Goog â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ───────────── Write a Goog ───────────── */
 
 class WriteGoogScreen extends StatefulWidget {
   const WriteGoogScreen();
@@ -480,7 +480,7 @@ class _WriteGoogScreenState extends State<WriteGoogScreen> {
     if (err == null) {
       Navigator.pop(context, true); // signal the feed to refresh
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Goog posted ðŸŽ‰"), behavior: SnackBarBehavior.floating),
+        const SnackBar(content: Text("Goog posted 🎉"), behavior: SnackBarBehavior.floating),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -509,7 +509,7 @@ class _WriteGoogScreenState extends State<WriteGoogScreen> {
             onTap: () => Navigator.pop(context),
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 10),
-              decoration: BoxDecoration(color: GoogerColors.redDark, borderRadius: BorderRadius.circular(999)),
+              decoration: BoxDecoration(color: GoogerColors.redDark, borderRadius: BorderRadius.circular(12)),
               alignment: Alignment.center,
               child: const Text("Cancel", style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: Colors.white)),
             ),
@@ -603,7 +603,7 @@ class _WriteGoogScreenState extends State<WriteGoogScreen> {
   }
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ Search â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ───────────── Search ───────────── */
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen();
@@ -629,8 +629,8 @@ class _SearchScreenState extends State<SearchScreen> {
             hintText: "Search Googer",
             prefixIcon: const Icon(Icons.search, size: 18, color: GoogerColors.dim),
             fillColor: GoogerColors.soft6,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(999), borderSide: const BorderSide(color: GoogerColors.line)),
-            enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(999), borderSide: const BorderSide(color: GoogerColors.line)),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: GoogerColors.line)),
+            enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: GoogerColors.line)),
             contentPadding: const EdgeInsets.symmetric(vertical: 8),
           ),
           style: const TextStyle(fontSize: 13.5, color: GoogerColors.text),
@@ -672,7 +672,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                       Text(p.title, maxLines: 1, overflow: TextOverflow.ellipsis,
                           style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w500, color: GoogerColors.text)),
-                      Text("R ${p.price.toStringAsFixed(0)} Â· ${p.seller}",
+                      Text("R ${p.price.toStringAsFixed(0)} · ${p.seller}",
                           style: const TextStyle(fontSize: 10.5, color: GoogerColors.dim)),
                     ]),
                   ),
@@ -684,7 +684,7 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ Notifications â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ───────────── Notifications ───────────── */
 
 class NotificationsScreen extends StatefulWidget {
   const NotificationsScreen();

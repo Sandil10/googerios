@@ -258,7 +258,7 @@ class _ChangeLoginEmailScreenState extends State<ChangeLoginEmailScreen> {
             textAlign: TextAlign.center,
             onChanged: (_) => setState(() {}),
             decoration: const InputDecoration(hintText: "6-digit code", counterText: ""),
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500, letterSpacing: 8, color: GoogerColors.text),
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500, letterSpacing: 0, color: GoogerColors.text),
           ),
           const SizedBox(height: 14),
           FilledButton(onPressed: code.text.length == 6 ? () => setState(() => step = 2) : null, child: const Text("Verify Code")),
@@ -310,7 +310,7 @@ class _TwoFactorScreenState extends State<TwoFactorScreen> {
               height: 52,
               decoration: BoxDecoration(
                 color: enabled ? GoogerColors.green.withValues(alpha: 0.12) : GoogerColors.soft6,
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: enabled ? GoogerColors.green.withValues(alpha: 0.3) : GoogerColors.line),
               ),
               child: Icon(Icons.shield_outlined, size: 26, color: enabled ? GoogerColors.green : GoogerColors.muted),
@@ -346,7 +346,7 @@ class _TwoFactorScreenState extends State<TwoFactorScreen> {
                   padding: const EdgeInsets.all(14),
                   decoration: BoxDecoration(
                     color: GoogerColors.card,
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(12),
                     border: Border.all(color: active ? Colors.white54 : GoogerColors.border),
                   ),
                   child: Row(children: [
@@ -368,7 +368,7 @@ class _TwoFactorScreenState extends State<TwoFactorScreen> {
             padding: const EdgeInsets.all(14),
             decoration: BoxDecoration(
               color: GoogerColors.amber.withValues(alpha: 0.05),
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(12),
               border: Border.all(color: GoogerColors.amber.withValues(alpha: 0.2)),
             ),
             child: Row(children: [
@@ -385,7 +385,7 @@ class _TwoFactorScreenState extends State<TwoFactorScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: GoogerColors.amber.withValues(alpha: 0.14),
-                  borderRadius: BorderRadius.circular(999),
+                  borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: GoogerColors.amber.withValues(alpha: 0.3)),
                 ),
                 child: const Text("Generate", style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500, color: GoogerColors.amber)),
@@ -412,7 +412,7 @@ class PasskeysScreen extends StatelessWidget {
           padding: const EdgeInsets.all(22),
           decoration: BoxDecoration(
             color: GoogerColors.card,
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(12),
             border: Border.all(color: GoogerColors.sky.withValues(alpha: 0.25)),
           ),
           child: Column(children: [
@@ -520,7 +520,7 @@ class _TrustedDevicesScreenState extends State<TrustedDevicesScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               decoration: BoxDecoration(
                 color: GoogerColors.soft6,
-                borderRadius: BorderRadius.circular(999),
+                borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: GoogerColors.line),
               ),
               child: Row(mainAxisSize: MainAxisSize.min, children: const [
@@ -548,7 +548,7 @@ class _TrustedDevicesScreenState extends State<TrustedDevicesScreen> {
                 padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(
                   color: GoogerColors.card,
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(12),
                   border: Border.all(
                       color: isCurrent ? GoogerColors.green.withValues(alpha: 0.35) : GoogerColors.border),
                 ),
@@ -580,7 +580,7 @@ class _TrustedDevicesScreenState extends State<TrustedDevicesScreen> {
                         padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 6),
                         decoration: BoxDecoration(
                           color: GoogerColors.red.withValues(alpha: 0.08),
-                          borderRadius: BorderRadius.circular(999),
+                          borderRadius: BorderRadius.circular(12),
                           border: Border.all(color: GoogerColors.red.withValues(alpha: 0.25)),
                         ),
                         child: const Text("Revoke",
@@ -598,7 +598,7 @@ class _TrustedDevicesScreenState extends State<TrustedDevicesScreen> {
                 padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(
                   color: GoogerColors.card,
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: d.current ? GoogerColors.green.withValues(alpha: 0.35) : GoogerColors.border),
                 ),
                 child: Row(children: [
@@ -622,7 +622,7 @@ class _TrustedDevicesScreenState extends State<TrustedDevicesScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 6),
                       decoration: BoxDecoration(
                         color: GoogerColors.red.withValues(alpha: 0.08),
-                        borderRadius: BorderRadius.circular(999),
+                        borderRadius: BorderRadius.circular(12),
                         border: Border.all(color: GoogerColors.red.withValues(alpha: 0.25)),
                       ),
                       child: const Text("Revoke", style: TextStyle(fontSize: 9.5, fontWeight: FontWeight.w500, color: GoogerColors.red)),

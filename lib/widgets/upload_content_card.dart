@@ -43,7 +43,7 @@ class _UploadContentCardState extends State<UploadContentCard> {
       context: context,
       builder: (_) => AlertDialog(
         backgroundColor: GoogerColors.surface,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         title: const Text("Unlock content", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: GoogerColors.text)),
         content: Text(
           "Watch this ${c.type} content for ${c.coins.toStringAsFixed(0)} Rupier coins?\nCoins are paid from your wallet to @${c.username}.",
@@ -185,7 +185,7 @@ class _UploadContentCardState extends State<UploadContentCard> {
               child: Text(c.username,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: GoogerColors.text)),
+                  style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: GoogerColors.text)),
             ),
             const SizedBox(width: 6),
             Text("· ${c.time}", style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w500, color: GoogerColors.dim)),
@@ -254,9 +254,9 @@ class _UploadContentCardState extends State<UploadContentCard> {
                 left: 12,
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
-                  decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.55), borderRadius: BorderRadius.circular(999)),
+                  decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.55), borderRadius: BorderRadius.circular(12)),
                   child: Text(c.topic.toUpperCase(),
-                      style: const TextStyle(fontSize: 9.5, fontWeight: FontWeight.w700, letterSpacing: 1.2, color: Colors.white)),
+                      style: const TextStyle(fontSize: 9.5, fontWeight: FontWeight.w600, letterSpacing: 0, color: Colors.white)),
                 ),
               ),
               // WATCH NOW pill
@@ -265,12 +265,12 @@ class _UploadContentCardState extends State<UploadContentCard> {
                   onTap: _watch,
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                    decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.75), borderRadius: BorderRadius.circular(999)),
+                    decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.75), borderRadius: BorderRadius.circular(12)),
                     child: Row(mainAxisSize: MainAxisSize.min, children: [
                       const Icon(Icons.play_arrow, size: 15, color: Colors.white),
                       const SizedBox(width: 5),
                       const Text("WATCH NOW",
-                          style: TextStyle(fontSize: 10.5, fontWeight: FontWeight.w700, letterSpacing: 1, color: Colors.white)),
+                          style: TextStyle(fontSize: 10.5, fontWeight: FontWeight.w600, letterSpacing: 0, color: Colors.white)),
                       if (!hasAccess && c.coins > 0) ...[
                         Container(width: 1, height: 12, margin: const EdgeInsets.symmetric(horizontal: 9), color: Colors.white30),
                         Text("${c.coins.toStringAsFixed(0)} Coins",
@@ -351,7 +351,7 @@ class _UploadContentCardState extends State<UploadContentCard> {
             const SizedBox(width: 5),
             Text(_fmt(count),
                 style: const TextStyle(
-                    fontSize: 12, fontWeight: FontWeight.w700, color: GoogerColors.muted)),
+                    fontSize: 12, fontWeight: FontWeight.w600, color: GoogerColors.muted)),
           ],
         ]),
       ),

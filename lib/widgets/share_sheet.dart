@@ -53,7 +53,7 @@ class _ShareSheet extends StatelessWidget {
           Row(children: [
             Expanded(
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                const Text("Share", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: GoogerColors.text)),
+                const Text("Share", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: GoogerColors.text)),
                 Text(title, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 11, color: GoogerColors.dim)),
               ]),
             ),
@@ -75,7 +75,7 @@ class _ShareSheet extends StatelessWidget {
                   Container(
                     width: 56,
                     height: 56,
-                    decoration: BoxDecoration(color: t.$3, borderRadius: BorderRadius.circular(16)),
+                    decoration: BoxDecoration(color: t.$3, borderRadius: BorderRadius.circular(12)),
                     child: Icon(t.$2, size: 24, color: Colors.white),
                   ),
                   const SizedBox(height: 7),

@@ -1,9 +1,9 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import '../api/api.dart';
 import '../theme.dart';
 import '../widgets/kit.dart';
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ Login â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ───────────── Login ───────────── */
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen();
@@ -66,7 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
               padding: const EdgeInsets.all(28),
               decoration: BoxDecoration(
                 color: Colors.black,
-                borderRadius: BorderRadius.circular(26),
+                borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: GoogerColors.border),
               ),
               child: Column(mainAxisSize: MainAxisSize.min, children: [
@@ -186,7 +186,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 20),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  const Text("New to Googer? â€” ",
+                  const Text("New to Googer? — ",
                       style: TextStyle(fontSize: 12, color: GoogerColors.dim)),
                   GestureDetector(
                     onTap: () => Navigator.pushNamed(context, "/register"),
@@ -328,7 +328,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 Text(title,
                     style: const TextStyle(
                         fontSize: 21,
-                        fontWeight: FontWeight.w900,
+                        fontWeight: FontWeight.w600,
                         color: Colors.white)),
                 const SizedBox(height: 8),
                 Text(subtitle,
@@ -341,7 +341,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                           fontSize: 12,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: FontWeight.w600,
                           color: GoogerColors.red)),
                 ],
                 const SizedBox(height: 22),
@@ -363,8 +363,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     style: const TextStyle(
                         color: Colors.white,
                         fontSize: 18,
-                        fontWeight: FontWeight.w900,
-                        letterSpacing: 8),
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 0),
                   )
                 else ...[
                   TextField(
@@ -386,7 +386,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   Text("Debug OTP: $debugOtp",
                       style: const TextStyle(
                           fontSize: 11,
-                          fontWeight: FontWeight.w800,
+                          fontWeight: FontWeight.w600,
                           color: GoogerColors.amber)),
                 ],
                 const SizedBox(height: 20),
@@ -420,7 +420,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   }
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ Register â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ───────────── Register ───────────── */
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen();
@@ -497,7 +497,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               padding: const EdgeInsets.all(28),
               decoration: BoxDecoration(
                 color: Colors.black,
-                borderRadius: BorderRadius.circular(26),
+                borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: GoogerColors.border),
               ),
               child: Column(mainAxisSize: MainAxisSize.min, children: [
@@ -531,7 +531,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   padding: const EdgeInsets.all(4),
                   decoration: BoxDecoration(
                     color: GoogerColors.input,
-                    borderRadius: BorderRadius.circular(999),
+                    borderRadius: BorderRadius.circular(12),
                     border: Border.all(color: GoogerColors.border),
                   ),
                   child: Row(
@@ -545,7 +545,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             padding: const EdgeInsets.symmetric(vertical: 9),
                             decoration: BoxDecoration(
                               color: active ? Colors.white : Colors.transparent,
-                              borderRadius: BorderRadius.circular(999),
+                              borderRadius: BorderRadius.circular(12),
                             ),
                             alignment: Alignment.center,
                             child: Text(mode,
@@ -658,7 +658,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 FilledButton(onPressed: _submit, child: const Text("Create")),
                 const SizedBox(height: 18),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  const Text("Already have account? â€” ",
+                  const Text("Already have account? — ",
                       style: TextStyle(fontSize: 12, color: GoogerColors.dim)),
                   GestureDetector(
                     onTap: () => Navigator.pop(context),
@@ -678,7 +678,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ Suspended â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ───────────── Suspended ───────────── */
 
 class SuspendedScreen extends StatelessWidget {
   const SuspendedScreen();
@@ -696,7 +696,7 @@ class SuspendedScreen extends StatelessWidget {
               padding: const EdgeInsets.all(28),
               decoration: BoxDecoration(
                 color: GoogerColors.surface,
-                borderRadius: BorderRadius.circular(26),
+                borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: GoogerColors.line),
               ),
               child: Column(mainAxisSize: MainAxisSize.min, children: [
@@ -734,17 +734,17 @@ class SuspendedScreen extends StatelessWidget {
                         Overline("What you can still do",
                             color: GoogerColors.dim),
                         SizedBox(height: 8),
-                        Text("â€¢ Access your wallet balance (if permitted)",
+                        Text("• Access your wallet balance (if permitted)",
                             style: TextStyle(
                                 fontSize: 12,
                                 height: 1.6,
                                 color: GoogerColors.muted)),
-                        Text("â€¢ Submit an appeal within 30 days",
+                        Text("• Submit an appeal within 30 days",
                             style: TextStyle(
                                 fontSize: 12,
                                 height: 1.6,
                                 color: GoogerColors.muted)),
-                        Text("â€¢ Contact our support team",
+                        Text("• Contact our support team",
                             style: TextStyle(
                                 fontSize: 12,
                                 height: 1.6,

@@ -267,7 +267,7 @@ class _TopupScreenState extends State<TopupScreen> {
               child: Container(
                 decoration: BoxDecoration(
                   color: active ? Colors.white : GoogerColors.card,
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: active ? Colors.white : GoogerColors.border),
                 ),
                 child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -298,7 +298,7 @@ class _TopupScreenState extends State<TopupScreen> {
                 padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(
                   color: GoogerColors.card,
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: active ? Colors.white54 : GoogerColors.border),
                 ),
                 child: Row(children: [
@@ -365,7 +365,7 @@ class BankTransferScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 28),
           decoration: BoxDecoration(
             color: GoogerColors.soft,
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(12),
             border: Border.all(color: GoogerColors.line),
           ),
           child: Column(children: const [
@@ -433,7 +433,7 @@ class _WithdrawalScreenState extends State<WithdrawalScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
                   decoration: BoxDecoration(
                     color: GoogerColors.soft6,
-                    borderRadius: BorderRadius.circular(999),
+                    borderRadius: BorderRadius.circular(12),
                     border: Border.all(color: GoogerColors.line),
                   ),
                   child: Text(pct == 100 ? "MAX" : "$pct%", style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w500, color: GoogerColors.muted)),
@@ -455,7 +455,7 @@ class _WithdrawalScreenState extends State<WithdrawalScreen> {
                 padding: const EdgeInsets.all(14),
                 decoration: BoxDecoration(
                   color: GoogerColors.card,
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: active ? Colors.white54 : GoogerColors.border),
                 ),
                 child: Row(children: [
@@ -621,7 +621,7 @@ class _TransactionsScreenState extends State<TransactionsScreen> {
                                 padding: EdgeInsets.only(top: 5),
                                 child: Text("CANCEL",
                                     style: TextStyle(
-                                        fontSize: 9, fontWeight: FontWeight.w700, letterSpacing: 0.8, color: GoogerColors.red)),
+                                        fontSize: 9, fontWeight: FontWeight.w600, letterSpacing: 0, color: GoogerColors.red)),
                               ),
                             ),
                         ]),
@@ -722,7 +722,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                   padding: const EdgeInsets.all(18),
                   decoration: BoxDecoration(
                     color: GoogerColors.card,
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(12),
                     border: Border.all(color: active ? Colors.white54 : GoogerColors.border),
                   ),
                   child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -751,9 +751,9 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                   right: 16,
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-                    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(999)),
+                    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12)),
                     child: const Text("MOST POPULAR",
-                        style: TextStyle(fontSize: 8, fontWeight: FontWeight.w600, letterSpacing: 0.8, color: Color(0xFF111111))),
+                        style: TextStyle(fontSize: 8, fontWeight: FontWeight.w600, letterSpacing: 0, color: Color(0xFF111111))),
                   ),
                 ),
             ]),
@@ -791,7 +791,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
           padding: const EdgeInsets.symmetric(vertical: 22),
           decoration: BoxDecoration(
             color: GoogerColors.soft,
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(12),
             border: Border.all(color: GoogerColors.line),
           ),
           child: Column(children: [
@@ -807,7 +807,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
           padding: const EdgeInsets.all(22),
           decoration: BoxDecoration(
             color: GoogerColors.card,
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(12),
             border: Border.all(color: GoogerColors.blueDeep.withValues(alpha: 0.3)),
           ),
           child: Column(children: const [
@@ -956,7 +956,7 @@ class _WalletPayScreenState extends State<WalletPayScreen> {
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   decoration: BoxDecoration(
                     color: active ? Colors.white : GoogerColors.soft6,
-                    borderRadius: BorderRadius.circular(999),
+                    borderRadius: BorderRadius.circular(12),
                     border: Border.all(color: active ? Colors.white : GoogerColors.line),
                   ),
                   alignment: Alignment.center,
@@ -1192,7 +1192,7 @@ class CoinsManagementScreen extends StatelessWidget {
               child: const Text("R", style: TextStyle(fontSize: 26, fontWeight: FontWeight.w600, color: GoogerColors.amber)),
             ),
             const SizedBox(height: 10),
-            const Text("2,450", style: TextStyle(fontSize: 32, fontWeight: FontWeight.w600, letterSpacing: -0.8, color: GoogerColors.text)),
+            const Text("2,450", style: TextStyle(fontSize: 32, fontWeight: FontWeight.w600, letterSpacing: 0, color: GoogerColors.text)),
             const Overline("Rupier Coins", color: GoogerColors.dim),
             const SizedBox(height: 16),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -1266,7 +1266,7 @@ class _SellCoinsScreenState extends State<SellCoinsScreen> {
           child: Column(children: const [
             Overline("Sellable Coins", color: GoogerColors.dim),
             SizedBox(height: 4),
-            Text("2,450", style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600, letterSpacing: -0.6, color: GoogerColors.text)),
+            Text("2,450", style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600, letterSpacing: 0, color: GoogerColors.text)),
           ]),
         ),
         const SizedBox(height: 16),

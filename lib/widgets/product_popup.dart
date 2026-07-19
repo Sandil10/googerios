@@ -71,7 +71,7 @@ class _ProductPopupState extends State<_ProductPopup> {
                 margin: const EdgeInsets.symmetric(vertical: 10),
                 decoration: BoxDecoration(color: GoogerColors.soft10, borderRadius: BorderRadius.circular(2)),
               ),
-              const Text("Comments", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: GoogerColors.text)),
+              const Text("Comments", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: GoogerColors.text)),
               const SizedBox(height: 8),
               Expanded(
                 child: FutureBuilder<List<Map<String, dynamic>>>(
@@ -103,7 +103,7 @@ class _ProductPopupState extends State<_ProductPopup> {
                               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                                 Row(children: [
                                   Text("@$user",
-                                      style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w700, color: GoogerColors.text)),
+                                      style: const TextStyle(fontSize: 11.5, fontWeight: FontWeight.w600, color: GoogerColors.text)),
                                   const SizedBox(width: 6),
                                   Text(time, style: const TextStyle(fontSize: 9, color: GoogerColors.dim)),
                                 ]),
@@ -131,10 +131,10 @@ class _ProductPopupState extends State<_ProductPopup> {
                           hintText: "Add a comment…",
                           fillColor: GoogerColors.soft6,
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius: BorderRadius.circular(12),
                               borderSide: const BorderSide(color: GoogerColors.line)),
                           enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius: BorderRadius.circular(12),
                               borderSide: const BorderSide(color: GoogerColors.line)),
                           contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
                         ),
@@ -200,7 +200,7 @@ class _ProductPopupState extends State<_ProductPopup> {
                   Expanded(
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                       Text(p.seller, maxLines: 1, overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(fontSize: 13.5, fontWeight: FontWeight.w700, color: GoogerColors.text)),
+                          style: const TextStyle(fontSize: 13.5, fontWeight: FontWeight.w600, color: GoogerColors.text)),
                       const Text("3 M", style: TextStyle(fontSize: 10, color: GoogerColors.dim)),
                     ]),
                   ),
@@ -210,13 +210,13 @@ class _ProductPopupState extends State<_ProductPopup> {
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       decoration: BoxDecoration(
                         color: subscribed ? GoogerColors.soft10 : Colors.white,
-                        borderRadius: BorderRadius.circular(999),
+                        borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(subscribed ? "SUBSCRIBED" : "SUBSCRIBE",
                           style: TextStyle(
                               fontSize: 9.5,
-                              fontWeight: FontWeight.w700,
-                              letterSpacing: 0.8,
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: 0,
                               color: subscribed ? GoogerColors.text : const Color(0xFF111111))),
                     ),
                   ),
@@ -235,7 +235,7 @@ class _ProductPopupState extends State<_ProductPopup> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 14),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(18),
+                    borderRadius: BorderRadius.circular(12),
                     child: AspectRatio(
                       aspectRatio: 1.45,
                       child: Stack(fit: StackFit.expand, children: [
@@ -250,7 +250,7 @@ class _ProductPopupState extends State<_ProductPopup> {
                             padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
                             decoration: BoxDecoration(
                               color: Colors.black.withValues(alpha: 0.45),
-                              borderRadius: BorderRadius.circular(999),
+                              borderRadius: BorderRadius.circular(12),
                             ),
                             child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
                               _rail(liked ? Icons.favorite : Icons.favorite_border, _fmt(likes),
@@ -280,7 +280,7 @@ class _ProductPopupState extends State<_ProductPopup> {
                   padding: const EdgeInsets.all(16),
                   child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                     // title + category
-                    Text(p.title, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, height: 1.25, color: GoogerColors.text)),
+                    Text(p.title, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600, height: 1.25, color: GoogerColors.text)),
                     const SizedBox(height: 5),
                     Overline(p.category, color: const Color(0xFF7B8FB8)),
                     const SizedBox(height: 12),
@@ -312,7 +312,7 @@ class _ProductPopupState extends State<_ProductPopup> {
                         const SizedBox(width: 10),
                         Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                           Text(p.price.toStringAsFixed(2),
-                              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w700, letterSpacing: -0.4, color: GoogerColors.text)),
+                              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w600, letterSpacing: 0, color: GoogerColors.text)),
                           if (p.oldPrice != null)
                             Text("R ${p.oldPrice!.toStringAsFixed(2)}",
                                 style: const TextStyle(fontSize: 11.5, color: GoogerColors.red, decoration: TextDecoration.lineThrough, decorationColor: GoogerColors.red)),
@@ -321,18 +321,18 @@ class _ProductPopupState extends State<_ProductPopup> {
                         Column(crossAxisAlignment: CrossAxisAlignment.end, children: const [
                           Overline("Qty", color: GoogerColors.dim),
                           SizedBox(height: 2),
-                          Text("1 IN STOCK", style: TextStyle(fontSize: 8.5, fontWeight: FontWeight.w700, letterSpacing: 0.6, color: GoogerColors.sky)),
+                          Text("1 IN STOCK", style: TextStyle(fontSize: 8.5, fontWeight: FontWeight.w600, letterSpacing: 0, color: GoogerColors.sky)),
                         ]),
                         const SizedBox(width: 12),
                         Container(
                           decoration: BoxDecoration(
                             color: GoogerColors.soft6,
-                            borderRadius: BorderRadius.circular(999),
+                            borderRadius: BorderRadius.circular(12),
                             border: Border.all(color: GoogerColors.line),
                           ),
                           child: Row(children: [
                             _qtyBtn(Icons.remove, () => setState(() => qty = qty > 1 ? qty - 1 : 1)),
-                            SizedBox(width: 30, child: Text("$qty", textAlign: TextAlign.center, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: GoogerColors.text))),
+                            SizedBox(width: 30, child: Text("$qty", textAlign: TextAlign.center, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: GoogerColors.text))),
                             _qtyBtn(Icons.add, () => setState(() => qty++)),
                           ]),
                         ),
@@ -343,7 +343,7 @@ class _ProductPopupState extends State<_ProductPopup> {
                     Row(children: [
                       const Overline("Available Colors", color: Color(0xFF7B8FB8)),
                       const Spacer(),
-                      Text(size, style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w700, letterSpacing: 0.8, color: GoogerColors.dim)),
+                      Text(size, style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w600, letterSpacing: 0, color: GoogerColors.dim)),
                     ]),
                     const SizedBox(height: 8),
                     Row(children: [
@@ -373,14 +373,14 @@ class _ProductPopupState extends State<_ProductPopup> {
                                     padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                                     decoration: BoxDecoration(
                                       color: active ? Colors.white : GoogerColors.soft6,
-                                      borderRadius: BorderRadius.circular(999),
+                                      borderRadius: BorderRadius.circular(12),
                                       border: Border.all(color: active ? Colors.white : GoogerColors.line),
                                     ),
                                     child: Text(s,
                                         style: TextStyle(
                                             fontSize: 10,
-                                            fontWeight: FontWeight.w700,
-                                            letterSpacing: 0.6,
+                                            fontWeight: FontWeight.w600,
+                                            letterSpacing: 0,
                                             color: active ? const Color(0xFF111111) : GoogerColors.muted)),
                                   ),
                                 ),
@@ -396,7 +396,7 @@ class _ProductPopupState extends State<_ProductPopup> {
                       Overline("Delivery Time", color: Color(0xFF7B8FB8)),
                       Spacer(),
                       Text("JUL 11 - JUL 16 DELIVERY",
-                          style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, letterSpacing: 0.8, color: GoogerColors.text)),
+                          style: TextStyle(fontSize: 10, fontWeight: FontWeight.w600, letterSpacing: 0, color: GoogerColors.text)),
                     ]),
                     const SizedBox(height: 12),
                     // returns & warranty / ships to
@@ -412,9 +412,9 @@ class _ProductPopupState extends State<_ProductPopup> {
                           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: const [
                             Overline("Returns & Warranty", color: GoogerColors.dim),
                             SizedBox(height: 6),
-                            Text("14 DAYS RETURN", style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: GoogerColors.text)),
+                            Text("14 DAYS RETURN", style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: GoogerColors.text)),
                             SizedBox(height: 2),
-                            Text("NO WARRANTY", style: TextStyle(fontSize: 9, fontWeight: FontWeight.w700, letterSpacing: 0.6, color: GoogerColors.dim)),
+                            Text("NO WARRANTY", style: TextStyle(fontSize: 9, fontWeight: FontWeight.w600, letterSpacing: 0, color: GoogerColors.dim)),
                           ]),
                         ),
                       ),
@@ -429,7 +429,7 @@ class _ProductPopupState extends State<_ProductPopup> {
                           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: const [
                             Overline("Ships To", color: Colors.black54),
                             SizedBox(height: 6),
-                            Text("SRI LANKA", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w800, color: Color(0xFF111111))),
+                            Text("SRI LANKA", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xFF111111))),
                           ]),
                         ),
                       ),
@@ -536,13 +536,13 @@ class _ProductPopupState extends State<_ProductPopup> {
                     height: 30,
                     decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
                     alignment: Alignment.center,
-                    child: const Text("N", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w800, color: Color(0xFF111111))),
+                    child: const Text("N", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Color(0xFF111111))),
                   ),
                   const SizedBox(width: 10),
                   Overline("Rupieer", color: GoogerColors.text),
                   const Spacer(),
                   Text(total.toStringAsFixed(2),
-                      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, letterSpacing: -0.4, color: GoogerColors.text)),
+                      style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600, letterSpacing: 0, color: GoogerColors.text)),
                 ]),
               ),
             ),
@@ -557,7 +557,7 @@ class _ProductPopupState extends State<_ProductPopup> {
       child: Column(mainAxisSize: MainAxisSize.min, children: [
         Icon(icon, size: 19, color: color),
         const SizedBox(height: 2),
-        Text(count, style: const TextStyle(fontSize: 9, fontWeight: FontWeight.w700, color: Colors.white)),
+        Text(count, style: const TextStyle(fontSize: 9, fontWeight: FontWeight.w600, color: Colors.white)),
       ]),
     );
   }
@@ -572,9 +572,9 @@ class _ProductPopupState extends State<_ProductPopup> {
   Widget _whitePill(String label) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 9),
-      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(999)),
+      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12)),
       child: Text(label,
-          style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w700, letterSpacing: 0.8, color: Color(0xFF111111))),
+          style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w600, letterSpacing: 0, color: Color(0xFF111111))),
     );
   }
 }

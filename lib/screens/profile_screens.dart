@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import '../api/api.dart';
 import '../data/mock.dart';
 import '../theme.dart';
@@ -7,7 +7,7 @@ import '../widgets/kit.dart';
 import '../widgets/product_card.dart';
 
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ My profile â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ───────────── My profile ───────────── */
 
 class MyProfileScreen extends StatefulWidget {
   const MyProfileScreen();
@@ -91,7 +91,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                 const VerifiedBadge(size: 15),
               ]),
               const SizedBox(height: 4),
-              Text("@${Api.username} Â· ${Api.googerId}", style: const TextStyle(fontSize: 12, color: GoogerColors.dim)),
+              Text("@${Api.username} · ${Api.googerId}", style: const TextStyle(fontSize: 12, color: GoogerColors.dim)),
               const SizedBox(height: 16),
               Row(children: [
                 Expanded(
@@ -172,7 +172,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
   }
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ Public profile â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ───────────── Public profile ───────────── */
 
 class PublicProfileScreen extends StatefulWidget {
   const PublicProfileScreen();
@@ -346,7 +346,7 @@ class _PublicProfileScreenState extends State<PublicProfileScreen> {
     );
   }
 
-  /// Block / report â€” same options as the web public profile â‹® menu.
+  /// Block / report — same options as the web public profile ⋮ menu.
   void _showProfileActions(BuildContext context) {
     final id = user?["id"];
     showModalBottomSheet(
@@ -435,7 +435,7 @@ class _ProductProfileGrid extends StatelessWidget {
   }
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ Edit profile â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ───────────── Edit profile ───────────── */
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen();
@@ -464,8 +464,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     setState(() => usernameNote = available == null
         ? null
         : available
-            ? "âœ“ @$v is available"
-            : "âœ— @$v is taken");
+            ? "✓ @$v is available"
+            : "✗ @$v is taken");
   }
 
   Future<void> _save() async {
@@ -506,7 +506,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               child: Text(note,
                   style: TextStyle(
                       fontSize: 11,
-                      color: note.startsWith("âœ“") ? GoogerColors.green : GoogerColors.red)),
+                      color: note.startsWith("✓") ? GoogerColors.green : GoogerColors.red)),
             ),
           const SizedBox(height: 14),
         ]);
@@ -541,7 +541,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         field("Username", usernameCtrl, "username", onChanged: _checkUsername, note: usernameNote),
         field("Bio", bioCtrl, "Tell Googer about yourself", lines: 3),
         field("Country", countryCtrl, "Country"),
-        field("Phone", phoneCtrl, "+94 â€¦"),
+        field("Phone", phoneCtrl, "+94 …"),
         FilledButton(
           onPressed: saving ? null : _save,
           child: saving

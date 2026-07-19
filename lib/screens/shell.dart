@@ -168,11 +168,11 @@ class GoogerTopBar extends StatelessWidget implements PreferredSizeWidget {
                   fillColor: Colors.black,
                   contentPadding: EdgeInsets.zero,
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(24),
+                    borderRadius: BorderRadius.circular(12),
                     borderSide: const BorderSide(color: GoogerColors.line),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(24),
+                    borderRadius: BorderRadius.circular(12),
                     borderSide: const BorderSide(color: GoogerColors.line),
                   ),
                 ),
@@ -254,7 +254,7 @@ class CreateActionSheet extends StatelessWidget {
         padding: const EdgeInsets.all(6),
         decoration: BoxDecoration(
           color: const Color(0xF2171719),
-          borderRadius: BorderRadius.circular(22),
+          borderRadius: BorderRadius.circular(12),
           border: Border.all(color: GoogerColors.line),
         ),
         child: GridView.count(
@@ -270,11 +270,11 @@ class CreateActionSheet extends StatelessWidget {
                 Navigator.pop(context);
                 Navigator.pushNamed(context, a.route);
               },
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(12),
               child: Container(
                 decoration: BoxDecoration(
                   color: GoogerColors.soft,
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(12),
                 ),
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -294,7 +294,7 @@ class CreateActionSheet extends StatelessWidget {
                               fontSize: 11,
                               fontWeight: FontWeight.w500,
                               color: GoogerColors.text,
-                              letterSpacing: 0.3)),
+                              letterSpacing: 0)),
                     ]),
               ),
             );
@@ -450,7 +450,7 @@ class _ShopTabState extends State<ShopTab> {
                         style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
-                            letterSpacing: 1.5,
+                            letterSpacing: 0,
                             color: Colors.white)),
                   ),
                   IconChip(Icons.chevron_left, size: 32, color: Colors.white),
@@ -517,7 +517,7 @@ class _ScreenshotWalletTab extends StatelessWidget {
               style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.w600,
-                  letterSpacing: -0.8,
+                  letterSpacing: 0,
                   color: Colors.white)),
           SizedBox(width: 7),
           Padding(
@@ -533,7 +533,7 @@ class _ScreenshotWalletTab extends StatelessWidget {
         const Text("≈ R 9,612.00",
             style: TextStyle(
                 fontSize: 11,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w600,
                 color: GoogerColors.dim)),
         const SizedBox(height: 22),
         Row(
@@ -610,7 +610,7 @@ class _ScreenshotWalletTab extends StatelessWidget {
             margin: const EdgeInsets.only(left: 10),
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
             decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(999)),
+                color: Colors.white, borderRadius: BorderRadius.circular(12)),
             child: const Text("Learn more",
                 style: TextStyle(
                     fontSize: 9,
@@ -772,7 +772,7 @@ class _LivePill extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 4),
       decoration: BoxDecoration(
           color: GoogerColors.green.withValues(alpha: 0.16),
-          borderRadius: BorderRadius.circular(999)),
+          borderRadius: BorderRadius.circular(12)),
       child: const Text("LIVE",
           style: TextStyle(
               fontSize: 8,
@@ -923,8 +923,8 @@ class _OldWalletTabState extends State<StatefulWidget> {
                         Text(balanceText,
                             style: const TextStyle(
                                 fontSize: 30,
-                                fontWeight: FontWeight.w700,
-                                letterSpacing: -0.8,
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 0,
                                 color: Colors.white)),
                         const SizedBox(width: 10),
                         GestureDetector(
@@ -1122,7 +1122,7 @@ class _OldWalletTabState extends State<StatefulWidget> {
                   height: 52,
                   decoration: BoxDecoration(
                     color: _binanceYellow.withValues(alpha: 0.12),
-                    borderRadius: BorderRadius.circular(16),
+                    borderRadius: BorderRadius.circular(12),
                   ),
                   child: const Icon(Icons.card_giftcard,
                       size: 24, color: _binanceYellow),
@@ -1146,7 +1146,7 @@ class _OldWalletTabState extends State<StatefulWidget> {
           decoration: BoxDecoration(
             color:
                 filled ? _binanceYellow : Colors.white.withValues(alpha: 0.08),
-            borderRadius: BorderRadius.circular(999),
+            borderRadius: BorderRadius.circular(12),
           ),
           child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             Icon(icon,
@@ -1175,7 +1175,7 @@ class _OldWalletTabState extends State<StatefulWidget> {
         alignment: Alignment.center,
         child: Text(glyph,
             style: TextStyle(
-                fontSize: 13, fontWeight: FontWeight.w700, color: color)),
+                fontSize: 13, fontWeight: FontWeight.w600, color: color)),
       ),
     );
   }

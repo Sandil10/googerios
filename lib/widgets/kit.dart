@@ -59,8 +59,7 @@ class GoogerAvatar extends StatelessWidget {
   }
 }
 
-/// Blue scalloped verification seal with a white check —
-/// the classic "verified" badge (starburst edge), drawn with a CustomPainter.
+/// Compact verified badge, intentionally simple so it reads native instead of decorative.
 class VerifiedBadge extends StatelessWidget {
   final Color color;
   final double size;
@@ -68,70 +67,13 @@ class VerifiedBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      size: Size(size, size),
-      painter: _VerifiedSealPainter(color),
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+      child: Icon(Icons.check, size: size * 0.72, color: Colors.white),
     );
   }
-}
-
-class _VerifiedSealPainter extends CustomPainter {
-  final Color color;
-  _VerifiedSealPainter(this.color);
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final center = Offset(size.width / 2, size.height / 2);
-    final outer = size.width / 2;
-    final inner = outer * 0.86;
-    const points = 12;
-
-    // scalloped seal outline — rounded bumps around the circle
-    final path = Path();
-    for (int i = 0; i < points * 2; i++) {
-      final r = i.isEven ? outer : inner;
-      final angle = (i * 3.14159265 / points) - 3.14159265 / 2;
-      final p = Offset(
-          center.dx + r * cos(angle), center.dy + r * sin(angle));
-      if (i == 0) {
-        path.moveTo(p.dx, p.dy);
-      } else {
-        // arc-ish edge: quadratic through the midpoint keeps bumps rounded
-        path.lineTo(p.dx, p.dy);
-      }
-    }
-    path.close();
-
-    canvas.drawPath(
-      path,
-      Paint()
-        ..shader = LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [color.withValues(alpha: 0.95), color],
-        ).createShader(Offset.zero & size)
-        ..isAntiAlias = true,
-    );
-
-    // white check mark
-    final check = Path()
-      ..moveTo(size.width * 0.30, size.height * 0.52)
-      ..lineTo(size.width * 0.45, size.height * 0.66)
-      ..lineTo(size.width * 0.72, size.height * 0.36);
-    canvas.drawPath(
-      check,
-      Paint()
-        ..color = Colors.white
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = size.width * 0.11
-        ..strokeCap = StrokeCap.round
-        ..strokeJoin = StrokeJoin.round
-        ..isAntiAlias = true,
-    );
-  }
-
-  @override
-  bool shouldRepaint(covariant _VerifiedSealPainter old) => old.color != color;
 }
 
 class GoogerCard extends StatelessWidget {
@@ -146,14 +88,14 @@ class GoogerCard extends StatelessWidget {
     final card = Container(
       decoration: BoxDecoration(
         color: color ?? GoogerColors.card,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(12),
         border: Border.all(color: GoogerColors.border),
       ),
       padding: padding,
       child: child,
     );
     if (onTap == null) return card;
-    return InkWell(onTap: onTap, borderRadius: BorderRadius.circular(16), child: card);
+    return InkWell(onTap: onTap, borderRadius: BorderRadius.circular(12), child: card);
   }
 }
 
@@ -187,15 +129,16 @@ class IconChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final hasBg = bg != null;
     return Container(
       width: size,
       height: size,
       decoration: BoxDecoration(
-        color: bg ?? GoogerColors.soft6,
-        borderRadius: BorderRadius.circular(size * 0.3),
-        border: Border.all(color: GoogerColors.line),
+        color: bg ?? Colors.transparent,
+        borderRadius: BorderRadius.circular(8),
+        border: hasBg ? Border.all(color: GoogerColors.line) : null,
       ),
-      child: Icon(icon, size: size * 0.46, color: color ?? GoogerColors.muted),
+      child: Icon(icon, size: size * 0.48, color: color ?? GoogerColors.muted),
     );
   }
 }
@@ -290,7 +233,7 @@ class Rupee extends StatelessWidget {
     final display = amount.toStringAsFixed(2).replaceAllMapped(
         RegExp(r"\B(?=(\d{3})+(?!\d))"), (m) => ",");
     return Text("R $display",
-        style: TextStyle(color: color, fontSize: size, fontWeight: FontWeight.w600, letterSpacing: -0.3));
+        style: TextStyle(color: color, fontSize: size, fontWeight: FontWeight.w600, letterSpacing: 0));
   }
 }
 
@@ -314,14 +257,14 @@ class ChoiceChipRow extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
             decoration: BoxDecoration(
               color: active ? GoogerColors.red : GoogerColors.card,
-              borderRadius: BorderRadius.circular(999),
+              borderRadius: BorderRadius.circular(12),
               border: active ? null : Border.all(color: GoogerColors.line),
             ),
             child: Text(opt,
                 style: TextStyle(
                   fontSize: 11,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 0.4,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 0,
                   color: active ? Colors.white : GoogerColors.dim,
                 )),
           ),
@@ -341,11 +284,11 @@ class GlowCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(12),
       child: Container(
         height: height,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(12),
           border: Border.all(color: GoogerColors.border),
         ),
         child: CustomPaint(painter: _GlowPainter(glow), child: child),
@@ -394,10 +337,10 @@ class StatusPill extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.12),
-        borderRadius: BorderRadius.circular(999),
+        borderRadius: BorderRadius.circular(12),
       ),
       child: Text(text.toUpperCase(),
-          style: TextStyle(fontSize: 8.5, fontWeight: FontWeight.w600, letterSpacing: 0.6, color: color)),
+          style: TextStyle(fontSize: 8.5, fontWeight: FontWeight.w600, letterSpacing: 0, color: color)),
     );
   }
 }

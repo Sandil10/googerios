@@ -30,8 +30,8 @@ class _ProductCardState extends State<ProductCard> {
       onTap: () => showProductPopup(context, product),
       child: Container(
         decoration: BoxDecoration(
-          color: const Color(0xFF141414),
-          borderRadius: BorderRadius.circular(18),
+          color: GoogerColors.card,
+          borderRadius: BorderRadius.circular(12),
           border: Border.all(color: GoogerColors.border),
         ),
         clipBehavior: Clip.antiAlias,
@@ -56,7 +56,7 @@ class _ProductCardState extends State<ProductCard> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(14),
+              borderRadius: BorderRadius.circular(10),
               child: Stack(children: [
                 AspectRatio(
                   aspectRatio: 0.95,
@@ -73,7 +73,7 @@ class _ProductCardState extends State<ProductCard> {
                     bottom: 8,
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 8),
+                          horizontal: 8, vertical: 5),
                       decoration: BoxDecoration(
                         color: const Color(0xFF052F1F),
                         borderRadius: BorderRadius.circular(10),
@@ -81,7 +81,7 @@ class _ProductCardState extends State<ProductCard> {
                       ),
                       child: Text(sale,
                           style: const TextStyle(
-                              fontSize: 11,
+                              fontSize: 10,
                               fontWeight: FontWeight.w600,
                               color: Color(0xFF00FF88))),
                     ),
@@ -116,21 +116,11 @@ class _ProductCardState extends State<ProductCard> {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                            fontSize: 25,
+                            fontSize: 20,
                             fontWeight: FontWeight.w600,
                             color: Colors.white)),
                   ),
-                  Container(
-                    width: 36,
-                    height: 36,
-                    decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.10),
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.white24),
-                    ),
-                    child: const Icon(Icons.shopping_cart_outlined,
-                        size: 18, color: Colors.white),
-                  ),
+                  const Icon(Icons.shopping_cart_outlined, size: 18, color: Colors.white70),
                 ]),
                 const SizedBox(height: 8),
                 Row(children: [

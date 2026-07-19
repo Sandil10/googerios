@@ -24,7 +24,7 @@ void showGoogMenu(
         margin: const EdgeInsets.all(12),
         decoration: BoxDecoration(
           color: const Color(0xF21B1B1E),
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(12),
           border: Border.all(color: GoogerColors.line),
         ),
         child: Column(mainAxisSize: MainAxisSize.min, children: [
@@ -149,7 +149,7 @@ void _showEditForm(BuildContext context, int googId, String initialText, VoidCal
                 ),
               ),
               const SizedBox(height: 14),
-              const Text("Edit Goog", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: GoogerColors.text)),
+              const Text("Edit Goog", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: GoogerColors.text)),
               const SizedBox(height: 12),
               TextField(
                 controller: controller,
@@ -249,7 +249,7 @@ void _showReportForm(BuildContext context, int googId) {
               const SizedBox(height: 14),
               const Align(
                 alignment: Alignment.centerLeft,
-                child: Text("Report Goog", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: GoogerColors.text)),
+                child: Text("Report Goog", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: GoogerColors.text)),
               ),
               const SizedBox(height: 4),
               const Align(

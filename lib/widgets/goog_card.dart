@@ -110,7 +110,7 @@ class _GoogCardState extends State<GoogCard> {
               child: Text(post.username,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: GoogerColors.text)),
+                  style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: GoogerColors.text)),
             ),
           ),
           const SizedBox(width: 6),
@@ -197,7 +197,7 @@ class _GoogCardState extends State<GoogCard> {
             const SizedBox(width: 5),
             Text(_fmt(count),
                 style: const TextStyle(
-                    fontSize: 12, fontWeight: FontWeight.w700, color: GoogerColors.muted)),
+                    fontSize: 12, fontWeight: FontWeight.w600, color: GoogerColors.muted)),
           ],
         ]),
       ),
@@ -221,7 +221,7 @@ class SubscribePill extends StatelessWidget {
           color: subscribed
               ? GoogerColors.soft6
               : GoogerColors.red.withValues(alpha: 0.12),
-          borderRadius: BorderRadius.circular(999),
+          borderRadius: BorderRadius.circular(12),
           border: Border.all(
               color: subscribed
                   ? GoogerColors.line
@@ -231,7 +231,7 @@ class SubscribePill extends StatelessWidget {
           subscribed ? "Subscribed" : "Subscribe",
           style: TextStyle(
             fontSize: 12.5,
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.w600,
             color: subscribed ? GoogerColors.muted : const Color(0xFFF16A5F),
           ),
         ),
@@ -247,7 +247,7 @@ class _RichGoogText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final base = TextStyle(fontSize: 15, height: 1.45, color: color ?? GoogerColors.text, letterSpacing: 0.1);
+    final base = TextStyle(fontSize: 15, height: 1.45, color: color ?? GoogerColors.text, letterSpacing: 0);
     final spans = <TextSpan>[];
     final regex = RegExp(r"((?:https?://|www\.)\S+|@\w+|#\w+)");
     int last = 0;

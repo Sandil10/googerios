@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import '../api/api.dart';
 import '../data/mock.dart';
@@ -11,15 +11,15 @@ import '../widgets/reel_viewer.dart';
 import '../widgets/share_sheet.dart';
 import '../widgets/upload_content_card.dart';
 
-/// Home feed â€” full parity port of the web app home feed
+/// Home feed — full parity port of the web app home feed
 /// (googernew-main/app/dashboard/page.tsx):
-///  Â· Search Googs pill with live profile suggestions
-///  Â· 27 category chips (All / Subscriptions / Comedy / ... )
-///  Â· Mixed organic feed: googs + upload content, seeded shuffle
-///  Â· Sponsored ads interleaved (1st after 1 organic card, then every 4)
-///  Â· Profile Promote carousels (after 3 organic cards, then every 8)
-///  Â· Infinite scroll batches (6 initial, +3), shimmer skeleton first load
-///  Â· Pull-to-refresh + silent 15s background refresh (flicker-free)
+///  · Search Googs pill with live profile suggestions
+///  · 27 category chips (All / Subscriptions / Comedy / ... )
+///  · Mixed organic feed: googs + upload content, seeded shuffle
+///  · Sponsored ads interleaved (1st after 1 organic card, then every 4)
+///  · Profile Promote carousels (after 3 organic cards, then every 8)
+///  · Infinite scroll batches (6 initial, +3), shimmer skeleton first load
+///  · Pull-to-refresh + silent 15s background refresh (flicker-free)
 class LiveHomeTab extends StatefulWidget {
   const LiveHomeTab({super.key});
 
@@ -27,7 +27,7 @@ class LiveHomeTab extends StatefulWidget {
   State<LiveHomeTab> createState() => _LiveHomeTabState();
 }
 
-/* â”€â”€ web parity constants (HOME_GOOG_CATEGORIES / batch sizes) â”€â”€ */
+/* ── web parity constants (HOME_GOOG_CATEGORIES / batch sizes) ── */
 
 const _kInitialBatch = 6;
 const _kBatchSize = 3;
@@ -62,7 +62,7 @@ const homeGoogCategories = [
   "Films & Animation",
 ];
 
-/* â”€â”€ feed entry union â”€â”€ */
+/* ── feed entry union ── */
 
 abstract class _FeedEntry {
   String get key;
@@ -98,8 +98,8 @@ class _CarouselEntry extends _FeedEntry {
   String get key => "carousel-$index";
 }
 
-/* â”€â”€ seeded shuffle (port of hashStringToSeed / seededRandom /
-      shuffleItemsWithSeed from the web home feed) â”€â”€ */
+/* ── seeded shuffle (port of hashStringToSeed / seededRandom /
+      shuffleItemsWithSeed from the web home feed) ── */
 
 int _hashSeed(String value) {
   var hash = 0x811C9DC5; // FNV offset basis 2166136261
@@ -187,7 +187,7 @@ class _LiveHomeTabState extends State<LiveHomeTab> {
     final ads = results[2] as List<HomeAd>;
     final following = results[3] as Set<String>;
 
-    // Signature check (like the web postsSignatureRef) â€” skip the setState
+    // Signature check (like the web postsSignatureRef) — skip the setState
     // entirely when nothing changed so the feed never repaints for no reason.
     final signature = [
       ...posts.map((p) =>
@@ -225,7 +225,7 @@ class _LiveHomeTabState extends State<LiveHomeTab> {
     return names;
   }
 
-  /* â”€â”€ filters (ports of postMatchesGoogCategory etc.) â”€â”€ */
+  /* ── filters (ports of postMatchesGoogCategory etc.) ── */
 
   bool _postMatchesCategory(GoogPost post) {
     if (_category == "All") return true;
@@ -260,8 +260,8 @@ class _LiveHomeTabState extends State<LiveHomeTab> {
   bool _matchesSearch(String q, List<String> fields) =>
       q.isEmpty || fields.any((f) => f.toLowerCase().contains(q));
 
-  /* â”€â”€ feed composition (port of mixHomeOrganicItems +
-        insertHomeProfilePromoteRows + interleaveHomeOrganicItemsWithAds) â”€â”€ */
+  /* ── feed composition (port of mixHomeOrganicItems +
+        insertHomeProfilePromoteRows + interleaveHomeOrganicItemsWithAds) ── */
 
   List<_FeedEntry> get _feedEntries {
     final q = _searchQuery.trim().toLowerCase();
@@ -304,7 +304,7 @@ class _LiveHomeTabState extends State<LiveHomeTab> {
       ),
     ];
 
-    // 2. profile promote carousels â€” first after 3 organic, then every 8
+    // 2. profile promote carousels — first after 3 organic, then every 8
     final withCarousels = <_FeedEntry>[];
     if (profileAds.isEmpty) {
       withCarousels.addAll(organic);
@@ -331,7 +331,7 @@ class _LiveHomeTabState extends State<LiveHomeTab> {
       }
     }
 
-    // 3. sponsored ads â€” first after the 1st organic card, then every 4
+    // 3. sponsored ads — first after the 1st organic card, then every 4
     if (sponsoredAds.isEmpty) return withCarousels;
     final output = <_FeedEntry>[];
     var adIndex = 0;
@@ -458,7 +458,7 @@ class _LiveHomeTabState extends State<LiveHomeTab> {
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: active ? Colors.white : GoogerColors.soft,
-                borderRadius: BorderRadius.circular(999),
+                borderRadius: BorderRadius.circular(12),
                 border: Border.all(
                     color: active ? Colors.white : GoogerColors.line),
               ),
@@ -466,8 +466,8 @@ class _LiveHomeTabState extends State<LiveHomeTab> {
                 cat,
                 style: TextStyle(
                   fontSize: 10,
-                  fontWeight: FontWeight.w900,
-                  letterSpacing: 0.1,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 0,
                   color:
                       active ? const Color(0xFF111111) : GoogerColors.muted,
                 ),
@@ -480,7 +480,7 @@ class _LiveHomeTabState extends State<LiveHomeTab> {
   }
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ Threads-style entrance animation â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────────── Threads-style entrance animation ────────────── */
 
 class _FadeIn extends StatelessWidget {
   final Widget child;
@@ -529,7 +529,7 @@ class _SponsoredHomeAdCardState extends State<_SponsoredHomeAdCard> {
       child: Container(
         decoration: BoxDecoration(
           color: GoogerColors.card,
-          borderRadius: BorderRadius.circular(18),
+          borderRadius: BorderRadius.circular(12),
           border: Border.all(color: GoogerColors.line),
         ),
         clipBehavior: Clip.antiAlias,
@@ -551,13 +551,13 @@ class _SponsoredHomeAdCardState extends State<_SponsoredHomeAdCard> {
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                               fontSize: 12,
-                              fontWeight: FontWeight.w900,
+                              fontWeight: FontWeight.w600,
                               color: Colors.white)),
                       const Text("SPONSORED",
                           style: TextStyle(
                               fontSize: 8,
-                              fontWeight: FontWeight.w900,
-                              letterSpacing: 1.8,
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: 0,
                               color: GoogerColors.dim)),
                     ]),
               ),
@@ -589,7 +589,7 @@ class _SponsoredHomeAdCardState extends State<_SponsoredHomeAdCard> {
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                       fontSize: 14,
-                      fontWeight: FontWeight.w900,
+                      fontWeight: FontWeight.w600,
                       color: Colors.white)),
               if (ad.description.isNotEmpty) ...[
                 const SizedBox(height: 5),
@@ -618,7 +618,7 @@ class _SponsoredHomeAdCardState extends State<_SponsoredHomeAdCard> {
                 Text(_fmt(likes),
                     style: const TextStyle(
                         fontSize: 10,
-                        fontWeight: FontWeight.w800,
+                        fontWeight: FontWeight.w600,
                         color: Colors.white)),
                 const SizedBox(width: 16),
                 const Icon(Icons.remove_red_eye_outlined,
@@ -627,7 +627,7 @@ class _SponsoredHomeAdCardState extends State<_SponsoredHomeAdCard> {
                 Text(_fmt(ad.views),
                     style: const TextStyle(
                         fontSize: 10,
-                        fontWeight: FontWeight.w800,
+                        fontWeight: FontWeight.w600,
                         color: Colors.white)),
                 const SizedBox(width: 16),
                 const Icon(Icons.mode_comment_outlined,
@@ -636,7 +636,7 @@ class _SponsoredHomeAdCardState extends State<_SponsoredHomeAdCard> {
                 Text(_fmt(ad.comments),
                     style: const TextStyle(
                         fontSize: 10,
-                        fontWeight: FontWeight.w800,
+                        fontWeight: FontWeight.w600,
                         color: Colors.white)),
                 const Spacer(),
                 const Icon(Icons.share_outlined, size: 17, color: Colors.white),
@@ -649,9 +649,9 @@ class _SponsoredHomeAdCardState extends State<_SponsoredHomeAdCard> {
   }
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ shimmer skeleton (RN/Facebook-style buffering) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+/* ────────────── shimmer skeleton (RN/Facebook-style buffering) ──────────────
    One AnimationController drives a single moving gradient over the whole
-   skeleton column â€” matches the geometry of a GoogCard so the swap to real
+   skeleton column — matches the geometry of a GoogCard so the swap to real
    content doesn't shift the layout. */
 
 class _ShimmerFeed extends StatefulWidget {
@@ -761,7 +761,7 @@ class _SkeletonGoogCard extends StatelessWidget {
   }
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ Profile Promote carousel (2 cards per view) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────────── Profile Promote carousel (2 cards per view) ────────────── */
 
 class _ProfilePromoteCarousel extends StatelessWidget {
   final List<HomeAd> ads;
@@ -770,7 +770,7 @@ class _ProfilePromoteCarousel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Same as the web ProfilePromoteCarousel: compact profile-promote cards
-    // side by side, no section label â€” each card carries its own tiny "Ad" tag.
+    // side by side, no section label — each card carries its own tiny "Ad" tag.
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 12),
       decoration: const BoxDecoration(
@@ -789,8 +789,8 @@ class _ProfilePromoteCarousel extends StatelessWidget {
   }
 }
 
-/// Web SharedProfilePromoteAdCard parity: header (avatar Â· username Â· "Ad"
-/// tag Â· Subscribe), a 3-item grid of the owner's products/contents and a
+/// Web SharedProfilePromoteAdCard parity: header (avatar · username · "Ad"
+/// tag · Subscribe), a 3-item grid of the owner's products/contents and a
 /// full-width View Profile button. Black card, no "Sponsored" text anywhere.
 class _ProfilePromoteCard extends StatefulWidget {
   final HomeAd ad;
@@ -902,11 +902,11 @@ class _ProfilePromoteCardState extends State<_ProfilePromoteCard> {
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
         color: GoogerColors.card,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(12),
         border: Border.all(color: GoogerColors.line),
       ),
       child: Column(children: [
-        // header â€” avatar Â· username Â· Ad Â· Subscribe (web card header)
+        // header — avatar · username · Ad · Subscribe (web card header)
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
           decoration: const BoxDecoration(
@@ -931,13 +931,13 @@ class _ProfilePromoteCardState extends State<_ProfilePromoteCard> {
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                               fontSize: 11.5,
-                              fontWeight: FontWeight.w900,
+                              fontWeight: FontWeight.w600,
                               color: GoogerColors.text)),
                       const Text("Ad",
                           style: TextStyle(
                               fontSize: 8,
-                              fontWeight: FontWeight.w700,
-                              letterSpacing: 1.4,
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: 0,
                               color: GoogerColors.dim)),
                     ]),
               ),
@@ -1005,14 +1005,14 @@ class _ProfilePromoteCardState extends State<_ProfilePromoteCard> {
                                         overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(
                                             fontSize: 8,
-                                            fontWeight: FontWeight.w900,
+                                            fontWeight: FontWeight.w600,
                                             color: GoogerColors.text)),
                                     if (price != null)
                                       Text(price.toStringAsFixed(0),
                                           maxLines: 1,
                                           style: const TextStyle(
                                               fontSize: 8,
-                                              fontWeight: FontWeight.w700,
+                                              fontWeight: FontWeight.w600,
                                               color: GoogerColors.dim)),
                                   ]),
                             ),
@@ -1025,7 +1025,7 @@ class _ProfilePromoteCardState extends State<_ProfilePromoteCard> {
           ),
         ),
         const Spacer(),
-        // View Profile â€” full-width soft button like the web card
+        // View Profile — full-width soft button like the web card
         Padding(
           padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
           child: GestureDetector(
@@ -1041,8 +1041,8 @@ class _ProfilePromoteCardState extends State<_ProfilePromoteCard> {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 8.5,
-                      fontWeight: FontWeight.w900,
-                      letterSpacing: 1.4,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 0,
                       color: GoogerColors.muted)),
             ),
           ),
@@ -1092,23 +1092,23 @@ class _MiniSubscribeButtonState extends State<_MiniSubscribeButton> {
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         decoration: BoxDecoration(
           color: subscribed ? GoogerColors.soft6 : Colors.white,
-          borderRadius: BorderRadius.circular(999),
+          borderRadius: BorderRadius.circular(12),
         ),
         child: Text(subscribed ? "SUBSCRIBED" : "SUBSCRIBE",
             style: TextStyle(
                 fontSize: 8,
-                fontWeight: FontWeight.w900,
-                letterSpacing: 0.6,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 0,
                 color: subscribed ? GoogerColors.muted : Colors.black)),
       ),
     );
   }
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ Product Promote ad card (web SharedProductCard) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────────── Product Promote ad card (web SharedProductCard) ────────────── */
 
-/// Product Promote ads â€” same box as the web SharedProductCard:
-/// header (avatar Â· seller Â· green "Ad" tag Â· Subscribe Â· two-dot menu),
+/// Product Promote ads — same box as the web SharedProductCard:
+/// header (avatar · seller · green "Ad" tag · Subscribe · two-dot menu),
 /// square product image with the +discount badge, title, big R price with a
 /// cart button, heart/eye/comment/share counts, the red Rupieer collect-coin
 /// button once the ad is liked, and the product quick-view popup on tap.
@@ -1205,7 +1205,7 @@ class _ProductPromoteAdCardState extends State<ProductPromoteAdCard> {
           const Text("Coin collected",
               style: TextStyle(
                   color: Colors.black,
-                  fontWeight: FontWeight.w800,
+                  fontWeight: FontWeight.w600,
                   fontSize: 13)),
         ]),
         backgroundColor: Colors.white,
@@ -1325,12 +1325,12 @@ class _ProductPromoteAdCardState extends State<ProductPromoteAdCard> {
           clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(
             color: GoogerColors.card,
-            borderRadius: BorderRadius.circular(24),
+            borderRadius: BorderRadius.circular(12),
             border: Border.all(color: GoogerColors.borderSoft),
           ),
           child: Stack(children: [
             Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              // header â€” avatar Â· seller Â· Ad tag Â· Subscribe Â· two dots
+              // header — avatar · seller · Ad tag · Subscribe · two dots
               Padding(
                 padding: const EdgeInsets.fromLTRB(12, 10, 8, 8),
                 child: Row(children: [
@@ -1356,7 +1356,7 @@ class _ProductPromoteAdCardState extends State<ProductPromoteAdCard> {
                                 overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(
                                     fontSize: 12.5,
-                                    fontWeight: FontWeight.w900,
+                                    fontWeight: FontWeight.w600,
                                     color: GoogerColors.text)),
                           ),
                           Row(children: const [
@@ -1366,7 +1366,7 @@ class _ProductPromoteAdCardState extends State<ProductPromoteAdCard> {
                             Text("Ad",
                                 style: TextStyle(
                                     fontSize: 9,
-                                    fontWeight: FontWeight.w700,
+                                    fontWeight: FontWeight.w600,
                                     color: GoogerColors.green)),
                           ]),
                         ]),
@@ -1389,7 +1389,7 @@ class _ProductPromoteAdCardState extends State<ProductPromoteAdCard> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(18),
+                  borderRadius: BorderRadius.circular(12),
                   child: Stack(children: [
                     AspectRatio(
                       aspectRatio: 1,
@@ -1423,14 +1423,14 @@ class _ProductPromoteAdCardState extends State<ProductPromoteAdCard> {
                           child: Text("+${ad.discount}%",
                               style: const TextStyle(
                                   fontSize: 11,
-                                  fontWeight: FontWeight.w900,
+                                  fontWeight: FontWeight.w600,
                                   color: GoogerColors.green)),
                         ),
                       ),
                   ]),
                 ),
               ),
-              // title Â· price Â· cart Â· interaction counts
+              // title · price · cart · interaction counts
               Padding(
                 padding: const EdgeInsets.fromLTRB(14, 10, 14, 12),
                 child: Column(
@@ -1441,15 +1441,15 @@ class _ProductPromoteAdCardState extends State<ProductPromoteAdCard> {
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                               fontSize: 12,
-                              fontWeight: FontWeight.w900,
-                              letterSpacing: 0.2,
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: 0,
                               color: GoogerColors.text)),
                       const SizedBox(height: 4),
                       Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
                         const Text("R ",
                             style: TextStyle(
                                 fontSize: 12,
-                                fontWeight: FontWeight.w900,
+                                fontWeight: FontWeight.w600,
                                 color: GoogerColors.dim)),
                         Text(
                             ad.displayPrice % 1 == 0
@@ -1457,8 +1457,8 @@ class _ProductPromoteAdCardState extends State<ProductPromoteAdCard> {
                                 : ad.displayPrice.toStringAsFixed(2),
                             style: const TextStyle(
                                 fontSize: 24,
-                                fontWeight: FontWeight.w900,
-                                letterSpacing: -0.5,
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 0,
                                 color: GoogerColors.text)),
                         if (ad.oldPrice != null) ...[
                           const SizedBox(width: 8),
@@ -1527,7 +1527,7 @@ class _ProductPromoteAdCardState extends State<ProductPromoteAdCard> {
                     ]),
               ),
             ]),
-            // red Rupieer collect button â€” appears once the ad is liked
+            // red Rupieer collect button — appears once the ad is liked
             if (_showCoinButton)
               Positioned(
                 top: 58,
@@ -1539,7 +1539,7 @@ class _ProductPromoteAdCardState extends State<ProductPromoteAdCard> {
                         const EdgeInsets.symmetric(horizontal: 9, vertical: 5),
                     decoration: BoxDecoration(
                       color: const Color(0xFFDC2626),
-                      borderRadius: BorderRadius.circular(999),
+                      borderRadius: BorderRadius.circular(12),
                       border: Border.all(
                           color: Colors.white.withValues(alpha: 0.25)),
                       boxShadow: const [
@@ -1558,8 +1558,8 @@ class _ProductPromoteAdCardState extends State<ProductPromoteAdCard> {
                       const Text("RUPIEER",
                           style: TextStyle(
                               fontSize: 8.5,
-                              fontWeight: FontWeight.w900,
-                              letterSpacing: 1,
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: 0,
                               color: Colors.white)),
                     ]),
                   ),
@@ -1591,7 +1591,7 @@ class _ProductPromoteAdCardState extends State<ProductPromoteAdCard> {
             Text(_fmt(count),
                 style: TextStyle(
                     fontSize: 11,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w600,
                     color: color == GoogerColors.red
                         ? GoogerColors.red
                         : GoogerColors.muted)),
@@ -1602,7 +1602,7 @@ class _ProductPromoteAdCardState extends State<ProductPromoteAdCard> {
   }
 }
 
-/* â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ Promoted ad card (PromotedAdCard parity) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ────────────── Promoted ad card (PromotedAdCard parity) ────────────── */
 
 class PromotedAdCard extends StatefulWidget {
   final HomeAd ad;
@@ -1718,7 +1718,7 @@ class _PromotedAdCardState extends State<PromotedAdCard> {
           const SizedBox(height: 10),
           ListTile(
             leading: const Icon(Icons.visibility_off_outlined, size: 20),
-            title: const Text("Not interested â€” hide for 24 hours",
+            title: const Text("Not interested — hide for 24 hours",
                 style: TextStyle(fontSize: 13.5)),
             onTap: () {
               Navigator.pop(sheetContext);
@@ -1765,7 +1765,7 @@ class _PromotedAdCardState extends State<PromotedAdCard> {
       decoration: const BoxDecoration(
           border: Border(bottom: BorderSide(color: GoogerColors.borderSoft))),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        // header â€” avatar Â· username Â· Sponsored badge Â· â€¢â€¢â€¢
+        // header — avatar · username · Sponsored badge · •••
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Row(children: [
@@ -1787,9 +1787,9 @@ class _PromotedAdCardState extends State<PromotedAdCard> {
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
                             fontSize: 15,
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeight.w600,
                             color: GoogerColors.text)),
-                    // ad topic only â€” no "Sponsored"/campaign-type label
+                    // ad topic only — no "Sponsored"/campaign-type label
                     if (ad.title.trim().isNotEmpty)
                       Text(ad.title,
                           maxLines: 1,
@@ -1812,7 +1812,7 @@ class _PromotedAdCardState extends State<PromotedAdCard> {
           ]),
         ),
         const SizedBox(height: 12),
-        // media â€” Instagram-style: full width, natural height.
+        // media — Instagram-style: full width, natural height.
         // Tap (first view) opens the full-screen second view.
         if (ad.mediaPreview.isNotEmpty) ...[
           GestureDetector(
@@ -1878,14 +1878,14 @@ class _PromotedAdCardState extends State<PromotedAdCard> {
                   child: const Text("R",
                       style: TextStyle(
                           fontSize: 10.5,
-                          fontWeight: FontWeight.w900,
+                          fontWeight: FontWeight.w600,
                           color: Color(0xFF221A05))),
                 ),
                 const SizedBox(width: 5),
                 Text(ad.price.toStringAsFixed(2),
                     style: const TextStyle(
                         fontSize: 14,
-                        fontWeight: FontWeight.w900,
+                        fontWeight: FontWeight.w600,
                         color: GoogerColors.green)),
                 const SizedBox(width: 12),
               ],
@@ -1897,7 +1897,7 @@ class _PromotedAdCardState extends State<PromotedAdCard> {
                       style: FilledButton.styleFrom(
                         minimumSize: const Size(0, 34),
                         textStyle: const TextStyle(
-                            fontSize: 11.5, fontWeight: FontWeight.w800),
+                            fontSize: 11.5, fontWeight: FontWeight.w600),
                       ),
                       onPressed: _openCta,
                       child: Text(ad.isProductPromote
@@ -1910,7 +1910,7 @@ class _PromotedAdCardState extends State<PromotedAdCard> {
                 ),
             ]),
             const SizedBox(height: 12),
-            // interactions â€” icons with counts beside them (web style, no
+            // interactions — icons with counts beside them (web style, no
             // "N likes, N comments..." summary line)
             Row(children: [
               _action(
@@ -1963,7 +1963,7 @@ class _PromotedAdCardState extends State<PromotedAdCard> {
             Text(_fmt(count),
                 style: const TextStyle(
                     fontSize: 12,
-                    fontWeight: FontWeight.w700,
+                    fontWeight: FontWeight.w600,
                     color: GoogerColors.muted)),
           ],
         ]),
@@ -1972,7 +1972,7 @@ class _PromotedAdCardState extends State<PromotedAdCard> {
   }
 }
 
-/* â”€â”€ ad interaction sheet (likes / comments / shares / views via /market) â”€â”€ */
+/* ── ad interaction sheet (likes / comments / shares / views via /market) ── */
 
 class _AdInteractionSheet extends StatefulWidget {
   final HomeAd ad;
@@ -2062,13 +2062,13 @@ class _AdInteractionSheetState extends State<_AdInteractionSheet> {
                     const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
                 decoration: BoxDecoration(
                   color: active ? Colors.white : GoogerColors.soft,
-                  borderRadius: BorderRadius.circular(999),
+                  borderRadius: BorderRadius.circular(12),
                 ),
                 child: Text(t.toUpperCase(),
                     style: TextStyle(
                         fontSize: 9.5,
-                        fontWeight: FontWeight.w900,
-                        letterSpacing: 0.6,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 0,
                         color: active
                             ? const Color(0xFF111111)
                             : GoogerColors.muted)),
@@ -2131,7 +2131,7 @@ class _AdInteractionSheetState extends State<_AdInteractionSheet> {
                                         Text(username,
                                             style: const TextStyle(
                                                 fontSize: 12.5,
-                                                fontWeight: FontWeight.w800,
+                                                fontWeight: FontWeight.w600,
                                                 color: GoogerColors.text)),
                                         if (comment.isNotEmpty)
                                           Padding(

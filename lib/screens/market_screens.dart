@@ -24,7 +24,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(product.category.toUpperCase(),
-            style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500, letterSpacing: 1.5, color: GoogerColors.dim)),
+            style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500, letterSpacing: 0, color: GoogerColors.dim)),
         actions: const [Padding(padding: EdgeInsets.only(right: 14), child: Icon(Icons.share_outlined, size: 19))],
       ),
       body: ListView(padding: const EdgeInsets.only(bottom: 110), children: [
@@ -40,7 +40,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               left: 14,
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                decoration: BoxDecoration(color: GoogerColors.red, borderRadius: BorderRadius.circular(999)),
+                decoration: BoxDecoration(color: GoogerColors.red, borderRadius: BorderRadius.circular(12)),
                 child: Text("-${(100 - product.price / product.oldPrice! * 100).round()}% OFF",
                     style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w600, color: Colors.white)),
               ),
@@ -61,7 +61,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   color: GoogerColors.soft6,
-                  borderRadius: BorderRadius.circular(999),
+                  borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: GoogerColors.line),
                 ),
                 child: Row(children: [
@@ -74,7 +74,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             const SizedBox(height: 14),
             Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
               Text("R ${product.price.toStringAsFixed(0)}",
-                  style: const TextStyle(fontSize: 26, fontWeight: FontWeight.w600, letterSpacing: -0.5, color: GoogerColors.text)),
+                  style: const TextStyle(fontSize: 26, fontWeight: FontWeight.w600, letterSpacing: 0, color: GoogerColors.text)),
               if (product.oldPrice != null) ...[
                 const SizedBox(width: 10),
                 Padding(
@@ -116,7 +116,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               padding: const EdgeInsets.all(14),
               decoration: BoxDecoration(
                 color: GoogerColors.sky.withValues(alpha: 0.06),
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: GoogerColors.sky.withValues(alpha: 0.2)),
               ),
               child: Row(children: [
@@ -134,7 +134,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   decoration: BoxDecoration(
                     color: GoogerColors.sky.withValues(alpha: 0.15),
-                    borderRadius: BorderRadius.circular(999),
+                    borderRadius: BorderRadius.circular(12),
                     border: Border.all(color: GoogerColors.sky.withValues(alpha: 0.3)),
                   ),
                   child: const Text("Get Link", style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500, color: GoogerColors.sky)),
@@ -212,7 +212,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
           padding: const EdgeInsets.symmetric(vertical: 34),
           decoration: BoxDecoration(
             color: GoogerColors.soft,
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(12),
             border: Border.all(color: GoogerColors.line),
           ),
           child: Column(children: const [
