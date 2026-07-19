@@ -30,7 +30,6 @@ class _GoogCardState extends State<GoogCard> {
       ? "https://googer.site/home"
       : "https://googer.site/share/${widget.post.shareCode}";
 
-  String _fmt(int n) => n > 999 ? "${(n / 1000).toStringAsFixed(1)}k" : "$n";
 
   @override
   void initState() {
@@ -110,7 +109,7 @@ class _GoogCardState extends State<GoogCard> {
               child: Text(post.username,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: GoogerColors.text)),
+                  style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500, color: GoogerColors.text)),
             ),
           ),
           const SizedBox(width: 6),
@@ -151,28 +150,32 @@ class _GoogCardState extends State<GoogCard> {
           child: Row(children: [
             _action(
               icon: liked ? Icons.favorite : Icons.favorite_border,
-              count: likes,
               color: liked ? GoogerColors.red : GoogerColors.text,
               onTap: _toggleLike,
               onLongPress: () => showInteractionSheet(context, post.id, "likes"),
             ),
             _action(
               icon: Icons.chat_bubble_outline,
-              count: post.comments,
               onTap: () => showInteractionSheet(context, post.id, "comments"),
             ),
             _action(
               icon: Icons.remove_red_eye_outlined,
-              count: post.views,
               onTap: () => showInteractionSheet(context, post.id, "views"),
             ),
             _action(
               icon: Icons.share_outlined,
-              count: post.shares,
               onTap: _share,
               onLongPress: () => showInteractionSheet(context, post.id, "shares"),
             ),
           ]),
+        ),
+        const SizedBox(height: 9),
+        Padding(
+          padding: const EdgeInsets.only(left: 48),
+          child: Text(
+            "$likes likes, ${post.comments} comments, ${post.views} views, ${post.shares} shares",
+            style: const TextStyle(fontSize: 13, height: 1.25, color: GoogerColors.dim),
+          ),
         ),
       ]),
     );
@@ -182,24 +185,15 @@ class _GoogCardState extends State<GoogCard> {
     required IconData icon,
     required VoidCallback onTap,
     VoidCallback? onLongPress,
-    int count = 0,
     Color color = GoogerColors.text,
   }) {
     return Padding(
-      padding: const EdgeInsets.only(right: 24),
+      padding: const EdgeInsets.only(right: 25),
       child: GestureDetector(
         onTap: onTap,
         onLongPress: onLongPress,
         behavior: HitTestBehavior.opaque,
-        child: Row(children: [
-          Icon(icon, size: 23, color: color),
-          if (count > 0) ...[
-            const SizedBox(width: 5),
-            Text(_fmt(count),
-                style: const TextStyle(
-                    fontSize: 12, fontWeight: FontWeight.w600, color: GoogerColors.muted)),
-          ],
-        ]),
+        child: Icon(icon, size: 24, color: color),
       ),
     );
   }
@@ -231,7 +225,7 @@ class SubscribePill extends StatelessWidget {
           subscribed ? "Subscribed" : "Subscribe",
           style: TextStyle(
             fontSize: 12.5,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w500,
             color: subscribed ? GoogerColors.muted : const Color(0xFFF16A5F),
           ),
         ),

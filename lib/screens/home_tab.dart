@@ -144,7 +144,7 @@ class _LiveHomeTabState extends State<LiveHomeTab> {
 
   bool _loading = true;
   final String _searchQuery = "";
-  String _category = "All";
+  final String _category = "All";
   int _visibleCount = _kInitialBatch;
   final Set<String> _hiddenAdIds = {};
 
@@ -377,14 +377,12 @@ class _LiveHomeTabState extends State<LiveHomeTab> {
           physics: const BouncingScrollPhysics(
               parent: AlwaysScrollableScrollPhysics()),
           padding: const EdgeInsets.only(bottom: 24),
-          itemCount: 1 +
-              (_loading ? 1 : visible.length) +
+          itemCount: (_loading ? 1 : visible.length) +
               (hasMore ? 1 : 0) +
               (!_loading && visible.isEmpty ? 1 : 0),
           itemBuilder: (context, index) {
-            if (index == 0) return _categoryChips();
             if (_loading) return const _ShimmerFeed();
-            final feedIndex = index - 1;
+            final feedIndex = index;
             if (feedIndex < visible.length) {
               return _FadeIn(
                 key: ValueKey(visible[feedIndex].key),
@@ -435,52 +433,12 @@ class _LiveHomeTabState extends State<LiveHomeTab> {
     return const SizedBox.shrink();
   }
 
-  Widget _categoryChips() {
-    return SizedBox(
-      height: 36,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 12),
-        itemCount: homeGoogCategories.length,
-        separatorBuilder: (_, __) => const SizedBox(width: 6),
-        itemBuilder: (_, i) {
-          final cat = homeGoogCategories[i];
-          final active = _category == cat;
-          return GestureDetector(
-            onTap: () => setState(() {
-              _category = cat;
-              _visibleCount = _kInitialBatch;
-            }),
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 180),
-              curve: Curves.easeOut,
-              padding: const EdgeInsets.symmetric(horizontal: 13),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: active ? Colors.white : GoogerColors.soft,
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(
-                    color: active ? Colors.white : GoogerColors.line),
-              ),
-              child: Text(
-                cat,
-                style: TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 0,
-                  color:
-                      active ? const Color(0xFF111111) : GoogerColors.muted,
-                ),
-              ),
-            ),
-          );
-        },
-      ),
-    );
-  }
 }
 
-/* ────────────── Threads-style entrance animation ────────────── */
+/* ────────────── shimmer skeleton (RN/Facebook-style buffering) ──────────────
+   One AnimationController drives a single moving gradient over the whole
+   skeleton column — matches the geometry of a GoogCard so the swap to real
+   content doesn't shift the layout. */
 
 class _FadeIn extends StatelessWidget {
   final Widget child;
@@ -551,20 +509,20 @@ class _SponsoredHomeAdCardState extends State<_SponsoredHomeAdCard> {
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                               fontSize: 12,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w500,
                               color: Colors.white)),
                       const Text("SPONSORED",
                           style: TextStyle(
                               fontSize: 8,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w500,
                               letterSpacing: 0,
                               color: GoogerColors.dim)),
                     ]),
               ),
               GestureDetector(
                 onTap: widget.onHide,
-                child: const Icon(Icons.more_vert,
-                    size: 20, color: Colors.white70),
+                child:
+                    const Icon(Icons.more_vert, size: 20, color: Colors.white70),
               ),
             ]),
           ),
@@ -589,7 +547,7 @@ class _SponsoredHomeAdCardState extends State<_SponsoredHomeAdCard> {
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                       fontSize: 14,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w500,
                       color: Colors.white)),
               if (ad.description.isNotEmpty) ...[
                 const SizedBox(height: 5),
@@ -612,35 +570,23 @@ class _SponsoredHomeAdCardState extends State<_SponsoredHomeAdCard> {
                     Api.toggleAdLike(ad.interactionId);
                   },
                   child: Icon(liked ? Icons.favorite : Icons.favorite_border,
-                      size: 18, color: liked ? GoogerColors.red : Colors.white),
+                      size: 20, color: liked ? GoogerColors.red : Colors.white),
                 ),
-                const SizedBox(width: 4),
-                Text(_fmt(likes),
-                    style: const TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white)),
-                const SizedBox(width: 16),
-                const Icon(Icons.remove_red_eye_outlined,
-                    size: 17, color: Colors.white),
-                const SizedBox(width: 4),
-                Text(_fmt(ad.views),
-                    style: const TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white)),
-                const SizedBox(width: 16),
+                const SizedBox(width: 20),
                 const Icon(Icons.mode_comment_outlined,
-                    size: 16, color: Colors.white),
-                const SizedBox(width: 4),
-                Text(_fmt(ad.comments),
-                    style: const TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white)),
-                const Spacer(),
-                const Icon(Icons.share_outlined, size: 17, color: Colors.white),
+                    size: 20, color: Colors.white),
+                const SizedBox(width: 20),
+                const Icon(Icons.remove_red_eye_outlined,
+                    size: 21, color: Colors.white),
+                const SizedBox(width: 20),
+                const Icon(Icons.share_outlined, size: 20, color: Colors.white),
               ]),
+              const SizedBox(height: 6),
+              Text(
+                "${_fmt(likes)} likes, ${_fmt(ad.comments)} comments, ${_fmt(ad.views)} views",
+                style: const TextStyle(
+                    fontSize: 12, height: 1.25, color: GoogerColors.dim),
+              ),
             ]),
           ),
         ]),
@@ -648,11 +594,6 @@ class _SponsoredHomeAdCardState extends State<_SponsoredHomeAdCard> {
     );
   }
 }
-
-/* ────────────── shimmer skeleton (RN/Facebook-style buffering) ──────────────
-   One AnimationController drives a single moving gradient over the whole
-   skeleton column — matches the geometry of a GoogCard so the swap to real
-   content doesn't shift the layout. */
 
 class _ShimmerFeed extends StatefulWidget {
   const _ShimmerFeed();

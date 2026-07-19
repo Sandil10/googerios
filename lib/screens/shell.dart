@@ -62,7 +62,7 @@ class _ShellScreenState extends State<ShellScreen> {
             child: Row(children: [
               _tab(0),
               _tab(1),
-              // handoff bottom nav: floating gradient circular Add button
+              // Screenshot-style bottom nav: a restrained circular Add button.
               Expanded(
                 child: GestureDetector(
                   onTap: _openCreateSheet,
@@ -75,14 +75,8 @@ class _ShellScreenState extends State<ShellScreen> {
                         height: 44,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          gradient: GoogerColors.addButtonGradient,
-                          border: Border.all(color: Colors.white24, width: 1.5),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.black.withValues(alpha: 0.5),
-                                blurRadius: 10,
-                                offset: const Offset(0, 4))
-                          ],
+                          color: const Color(0xFF202126),
+                          border: Border.all(color: const Color(0xFF2B2D34), width: 1),
                         ),
                         child: const Icon(Icons.add,
                             size: 21, color: GoogerColors.text),
@@ -135,7 +129,7 @@ class GoogerTopBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size.fromHeight(72);
 
-  bool get _showSearch => tabIndex == 0 || tabIndex == 1;
+  bool get _showSearch => tabIndex == 1;
   String get _hint => tabIndex == 0 ? "Search Googs" : "Search Googer";
 
   @override
@@ -147,12 +141,19 @@ class GoogerTopBar extends StatelessWidget implements PreferredSizeWidget {
       title: Row(children: [
         Image.asset(
           "assets/images/googer.png",
-          width: 38,
-          height: 38,
+          width: 42,
+          height: 42,
           errorBuilder: (_, __, ___) =>
               const IconChip(Icons.play_arrow_rounded, size: 38),
         ),
-        if (_showSearch) ...[
+        if (tabIndex == 0) ...[
+          const SizedBox(width: 10),
+          const Text(
+            "Googer",
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.white),
+          ),
+          const Spacer(),
+        ] else if (_showSearch) ...[
           const SizedBox(width: 10),
           Expanded(
             child: SizedBox(
